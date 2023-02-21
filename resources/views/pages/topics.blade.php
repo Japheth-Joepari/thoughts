@@ -118,7 +118,7 @@
         </header>
 
         <!-- section hero -->
-        <section class="single-cover2  data-bg-image" data-bg-image="{{ asset('images/reddog.jpeg') }}">
+        <section class="single-cover2  data-bg-image" data-bg-image="{{ url('images/banner.webp') }}">
 
             <div class="container-xl">
 
@@ -221,6 +221,21 @@
                                                         <a href="{{ route('viewArticle', $post) }}"><span
                                                                 class="icon-options"></span></a>
                                                     </div>
+                                                </div>
+
+                                                <div class="more-button float-start">
+
+                                                    <form action="{{ route('toggleClap', $post) }}" method="post"
+                                                        id="clap-form">
+                                                        @csrf
+                                                        <button type="submit" id="clap-button"
+                                                            style="border: transparent; background: transparent"><i
+                                                                class="fa-sharp fa-solid fa-hands-clapping btn btn-success text-white"
+                                                                id="clap-count">
+                                                                ({{ $post->claps->count() }})
+                                                            </i></button>
+                                                    </form>
+
                                                 </div>
                                             </div>
                                         </div>

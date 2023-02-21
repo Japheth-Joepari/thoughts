@@ -172,24 +172,26 @@
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <!-- social icons -->
-                                        <ul class="social-icons list-unstyled list-inline mb-0 float-md-end">
-                                            <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                        class="fab fa-facebook-f"></i></a></li>
-                                            <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                        class="fab fa-twitter"></i></a></li>
-                                            <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                        class="fab fa-linkedin-in"></i></a></li>
-                                            <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                        class="fab fa-pinterest"></i></a></li>
-                                            <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                        class="fab fa-telegram-plane"></i></a></li>
-                                            <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                        class="far fa-envelope"></i></a></li>
-                                        </ul>
+                                        <div class="social-icons list-unstyled list-inline mb-0 float-md-end">
+                                            <form action="{{ route('toggleClap', $post) }}" method="post"
+                                                id="clap-form">
+                                                @csrf
+                                                <button type="submit" id="clap-button"
+                                                    style="border: transparent; background: transparent"><i
+                                                        class="fa-sharp fa-solid fa-hands-clapping btn btn-success text-white"
+                                                        id="clap-count">
+                                                        ({{ $post->claps->count() }})
+                                                    </i></button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="more-button col-md-6 col-12">
 
+
+
+                                </div>
+                            </div>
                         </div>
 
                         <div class="spacer" data-height="50"></div>

@@ -148,7 +148,7 @@
                                 <li class="list-inline-item">{{ $post->created_at->diffForHumans() }}</li>
                             </ul>
                         </div>
-                        <a href="blog-single.html">
+                        <a href="{{ route('author', $post->user) }}">
                             <div class="thumb rounded">
                                 <div class="inner data-bg-image" data-bg-image="{{ asset('images/' . $post->image) }}">
                                 </div>
@@ -339,19 +339,20 @@
                 </li>
 
                 @if (!Auth::user())
-                    <li><a href="{{ route('login') }}">Explore</a></li>
-                    <li><a href="{{ route('login') }}">Topics</a></li>
+                    <li><a href="{{ route('explore') }}">Explore</a></li>
+                    <li><a href="{{ route('topics') }}">Topics</a></li>
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="{{ route('register') }}">Get Started </a></li>
                 @else
-                    <li><a href="#">My Account </a></li>
-                    <li><a href="#">Publications</a></li>
-                    <li><a href="#">New Article </a></li>
-                    <li><a href="#">Logout </a></li>
+                    <li><a href="{{ route('editProfile', Auth::user()) }}">Edit Profile </a></li>
+                    <li><a href="{{ route('author', Auth::user()) }}">Publications</a></li>
+                    <li><a href="{{ route('write') }}">New Article </a></li>
+                    <li><a href="{{ route('logout') }}">Logout </a></li>
                 @endif
             </ul>
         </nav>
+
 
         <!-- social icons -->
         <ul class="social-icons list-unstyled list-inline mb-0 mt-auto w-100">

@@ -174,7 +174,7 @@
 
                                 <div class="col-md-12 col-sm-6">
                                     <!-- post -->
-                                    @foreach ($user->post as $post)
+                                    @foreach ($usersPost as $post)
                                         <div class="post post-list clearfix">
                                             <div class="thumb rounded">
                                                 <span class="post-format-sm">
@@ -191,7 +191,7 @@
                                                 <ul class="meta list-inline mb-3">
                                                     <li class="list-inline-item"><a
                                                             href="{{ route('viewArticle', $post) }}"><img
-                                                                src="{{ asset('images/' . $post->image) }}"
+                                                                src="{{ asset('images/' . $post->user->profile_photo) }}"
                                                                 class="author" alt="author"
                                                                 style="object-fit: cover; height:1.6rem; width:1.6rem; border-radius:50%;" />{{ $post->user->name }}</a>
                                                     </li>
@@ -212,6 +212,33 @@
                                                         <a href="{{ route('viewArticle', $post) }}"><span
                                                                 class="icon-options"></span></a>
                                                     </div>
+
+                                                    @if (Auth::user()->uuid == $post->user->uuid)
+                                                        <div class="more-button float-start ">
+                                                            <a href="{{ route('viewArticle', $post) }}"><i
+                                                                    class="fa fa-trash btn btn-danger text-white"></i></a>
+                                                        </div>
+
+                                                        <div class="more-button float-start">
+                                                            <a href="{{ route('viewArticle', $post) }}"><i
+                                                                    class="fa fa-pen btn btn-primary text-white"></i></a>
+                                                        </div>
+                                                    @endif
+
+                                                    <div class="more-button float-start">
+
+                                                        <form action="{{ route('toggleClap', $post) }}" method="post"
+                                                            id="clap-form">
+                                                            @csrf
+                                                            <button type="submit" id="clap-button"
+                                                                style="border: transparent; background: transparent"><i
+                                                                    class="fa-sharp fa-solid fa-hands-clapping btn btn-success text-white"
+                                                                    id="clap-count">
+                                                                    ({{ $post->claps->count() }})
+                                                                </i></button>
+                                                        </form>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -222,7 +249,7 @@
                             </div>
                             <!-- load more button -->
                             <div class="text-center">
-                                <a href="{{ route('topics') }}" class="btn btn-simple">View all posts</a>
+                                {{ $usersPost->links('vendor.pagination.bootstrap-4', ['prev_text' => 'Previous Page', 'next_text' => 'Next Page', 'class' => 'my-pagination']) }}
                             </div>
 
                         </div>
@@ -517,4 +544,5 @@
             height: 100px;
         }
     </style>
+
 @endsection

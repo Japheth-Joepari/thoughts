@@ -30,11 +30,15 @@ Route::get('/explore', [PageController::class, 'explore'])->name('explore');
 Route::get('/topics', [PageController::class, 'topics'])->name('topics');
 Route::get('/write', [PageController::class, 'write'])->name('write')->middleware('auth');
 Route::post('/store', [PageController::class, 'storeArticle'])->name('storeArticle')->middleware('auth');
+Route::post('/update/{user}', [PageController::class, 'updateProfile'])->name('updateProfile')->middleware('auth');
+
 Route::get('/authors', [PageController::class, 'authors'])->name('authors')->middleware('auth');
 Route::get('/topics/{post}', [PageController::class, 'viewArticle'])->name('viewArticle');
 Route::get('/categories/{category}', [PageController::class, 'categoryPost'])->name('categoryPost');
 Route::get('/tags/{tag}', [PageController::class, 'tagPost'])->name('tagPost');
 Route::get('/author/{user}', [PageController::class, 'author'])->name('author');
+Route::get('editprofile/{user}', [PageController::class, 'editProfile'])->name('editProfile');
+Route::post('toggleClap/{post}', [PageController::class, 'toggleClap'])->name('toggleClap');
 
 
 Route::middleware([

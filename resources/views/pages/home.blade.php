@@ -362,12 +362,27 @@
                                                 <p class="excerpt mb-0">A wonderful serenity has taken possession
                                                     of my
                                                     entire soul, like these sweet mornings</p>
-                                                <div class="post-bottom clearfix d-flex align-items-center">
+                                                {{-- <div class="post-bottom clearfix d-flex align-items-center">
 
                                                     <div class="more-button float-end">
                                                         <a href="{{ route('viewArticle', $post) }}"><span
                                                                 class="icon-options"></span></a>
                                                     </div>
+                                                </div> --}}
+
+                                                <div class="post-bottom clearfix d-flex align-items-center">
+
+                                                    <form action="{{ route('toggleClap', $post) }}" method="post"
+                                                        id="clap-form">
+                                                        @csrf
+                                                        <button type="submit" id="clap-button"
+                                                            style="border: transparent; background: transparent"><i
+                                                                class="fa-sharp fa-solid fa-hands-clapping btn btn-success text-white"
+                                                                id="clap-count">
+                                                                ({{ $post->claps->count() }})
+                                                            </i></button>
+                                                    </form>
+
                                                 </div>
                                             </div>
                                         </div>

@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\Clap;
 
 class User extends Authenticatable
 {
@@ -39,6 +40,10 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+     public function claps() {
+        return $this->hasMany(Clap::class);
+    }
+
     public function getRouteKeyName()
     {
         return 'uuid';
@@ -60,6 +65,8 @@ class User extends Authenticatable
     public function isAdmin() {
         return $this->role === 'admin';
     }
+
+
 
 
     /**

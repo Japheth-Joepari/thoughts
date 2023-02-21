@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use File;
 
 class PageController extends Controller
 {
@@ -149,6 +150,19 @@ class PageController extends Controller
         // fetches the most popular 4 post by ascending order
         $mostPopularDesc = Post::orderBy('views_count', 'desc')->limit(4)->get();
 
+        // gets the id of the user
+        $userId = $user->id;
+
+        // Finds the user
+        $user = User::findOrFail($userId );
+
+        // Paginates the user
+        $usersPost = $user->post()->paginate(5);
+        // dd($usersPost);
+
+
+        // dd($userId);
+
         // fetches all the tags
         $tags = Tag::all();
 
@@ -157,6 +171,68 @@ class PageController extends Controller
         // fetches the number of post associated with a category
         $categories = Category::withCount('post')->get();
         // dd($user->name);
-        return view('pages.author', compact('user',  'mostPopularDesc',  'tags'));
+        return view('pages.author', compact('user',  'mostPopularDesc',  'tags', 'usersPost'));
+    }
+
+    public function editProfile(User $user) {
+        return view('pages.editProfile', compact('user'));
+    }
+
+    public function updateProfile(User $user, Request $request) {
+        // dd($user->name);
+
+        // Get the input values from the request
+        $input = $request->only(['name', 'about', 'email', 'facebook', 'instagram', 'twitter', 'website']);
+
+        // Loop through the input values and update them if they exist
+        foreach ($input as $key => $value) {
+            if (!empty($value)) {
+                $user->{$key} = $value;
+            }
+        }
+
+        // Update the password if it exists
+        if (!empty($request->input('password'))) {
+            $password = $request->input('password');
+            $confirm_password = $request->input('confirm_password');
+
+            if ($password === $confirm_password) {
+                $user->password = bcrypt($password);
+            } else {
+                return redirect()->back()->with('error', 'Password and confirm password do not match');
+            }
+        }
+
+        // Update the profile photo if it exists
+        if ($request->hasFile('profile_photo')) {
+                $old_photo = public_path('images/' . $user->profile_photo);
+                if (File::exists($old_photo)) {
+                    File::delete($old_photo);
+                }
+                $image = $request->file('profile_photo');
+                $new_name = rand() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('images'), $new_name);
+                $user->profile_photo = $new_name;
+            } else {
+                $user->profile_photo = $user->profile_photo;
+            }
+
+        // Save the changes to the user object
+        $user->save();
+        return redirect()->back()->with('success', 'Profile updated successfully');
+    }
+
+    public function toggleClap(Post $post, Request $request) {
+        $clap = auth()->user()->claps()->where('post_id', $post->id)->first();
+
+            if ($clap) {
+                $clap->delete();
+            } else {
+                auth()->user()->claps()->create([
+                    'post_id' => $post->id,
+                ]);
+            }
+
+        return back();
     }
 }
