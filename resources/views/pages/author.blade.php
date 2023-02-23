@@ -118,11 +118,12 @@
             data-bg-image="{{ asset('images/' . $user->profile_photo) }}">
             <div class="container-xl" style="border: transparent">
                 <!-- call to action -->
-                <div class="cta text-center">
+                <div class="cta text-center" id="scroll-button">
                     <h2 class="mt-0 mb-4">Hey I'm {{ $user->name }}</h2>
                     <p class="mt-0 mb-4">Hello, I’m a content writer who is fascinated by content fashion, celebrity and
                         lifestyle. She helps clients bring the right content to the right people.</p>
-                    <a href="personal-alt.html#" class="btn btn-light mt-2">Scroll down</a>
+
+                    <button id="scroll-button" class="btn btn-light mt-2 ">Scroll down</button>
                 </div>
             </div>
             <!-- animated mouse wheel -->
@@ -153,7 +154,7 @@
 
                 <div class="row gy-4">
 
-                    <div class="col-lg-8">
+                    <div class="col-lg-8 sction" id="sction">
 
                         <!-- section header -->
 
@@ -208,11 +209,6 @@
                                                     entire soul, like these sweet mornings</p>
                                                 <div class="post-bottom clearfix d-flex align-items-center">
 
-                                                    <div class="more-button float-end">
-                                                        <a href="{{ route('viewArticle', $post) }}"><span
-                                                                class="icon-options"></span></a>
-                                                    </div>
-
                                                     @if (Auth::user()->uuid == $post->user->uuid)
                                                         <div class="more-button float-start ">
                                                             <a href="{{ route('viewArticle', $post) }}"><i
@@ -221,22 +217,13 @@
 
                                                         <div class="more-button float-start">
                                                             <a href="{{ route('viewArticle', $post) }}"><i
-                                                                    class="fa fa-pen btn btn-primary text-white"></i></a>
+                                                                    class="fa fa-pen btn btn-success text-white"></i></a>
                                                         </div>
                                                     @endif
 
                                                     <div class="more-button float-start">
 
-                                                        <form action="{{ route('toggleClap', $post) }}" method="post"
-                                                            id="clap-form">
-                                                            @csrf
-                                                            <button type="submit" id="clap-button"
-                                                                style="border: transparent; background: transparent"><i
-                                                                    class="fa-sharp fa-solid fa-hands-clapping btn btn-success text-white"
-                                                                    id="clap-count">
-                                                                    ({{ $post->claps->count() }})
-                                                                </i></button>
-                                                        </form>
+                                                        <livewire:clap-button :post="$post" />
 
                                                     </div>
                                                 </div>
@@ -544,5 +531,20 @@
             height: 100px;
         }
     </style>
+
+    <script>
+        // Get a reference to the button and the target element
+        const scrollButton = document.getElementById('scroll-button');
+        const targetElement = document.getElementById('sction');
+
+        // Add a click event listener to the button
+        scrollButton.addEventListener('click', () => {
+            // Use the scrollIntoView method to scroll to the target element
+            // console.log('clicked');
+            targetElement.scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
 
 @endsection

@@ -3621,34 +3621,22 @@ button:focus {
 
 /*# sourceMappingURL=style.css.map */
 
-/* Large screens */
-@media (min-width: 992px) {
-    .img {
-        height: 5rem;
-    }
-}
+
 
 /* Medium screens */
-@media (min-width: 768px) and (max-width: 991px) {
-    .img {
-        height: 5rem;
-    }
-}
+
 /* Small screens */
 @media (max-width: 767px) {
-    .img {
-        height: 5rem;
-        width: 5.8rem;
-    }
+ 
 
     .navbar {
         padding: 1rem;
     }
 
-    .navbar button {
+    /* .navbar button {
         height: 1.6rem;
         width: 1.6rem;
-    }
+    } */
 
     .header-buttons a {
         padding: 0.3rem;
@@ -3659,9 +3647,7 @@ button:focus {
 }
 /* Extra large screens */
 @media (min-width: 1200px) {
-    .img {
-        height: 6rem;
-    }
+   
 
     .header-default {
         height: 6.2rem;
@@ -3705,17 +3691,17 @@ button:focus {
         height: 3.9rem;
     }
 
-    .header-buttons .b1 {
+    /* .header-buttons .b1 {
         height: 1.8rem;
         width: 1.8rem;
-    }
+    } */
 
     .header-buttons .burger-menu2 img {
-        height: 1.8rem;
-        width: 1.8rem;
+        /* height: 1.8rem;
+        width: 1.8rem; */
         object-fit: cover;
         border: 2px solid #ad1deb;
-        margin-left: 1.3rem;
+        /* margin-right: 1.3rem; */
     }
 
     /*.header-buttons {
@@ -3723,12 +3709,12 @@ button:focus {
     }*/
 }
 
-.burger-menu2 img {
+/*.burger-menu2 img {
     height: 2.5rem;
     width: 2.6rem;
     object-fit: cover;
     border: 2px solid #ad1deb;
-}
+}*/
 
 /* .carl {
             margin-top: rem;
@@ -3738,10 +3724,20 @@ button:focus {
     margin-left: 50px;
 }*/
 
-@media (max-width: 769px) {
-    .header-buttons .b1 {
-        height: 1.8rem;
-        width: 1.8rem;
+
+@media (min-width: 380px) {
+    .header-default .img {
+        /*        margin-left: 6.4rem;*/
+        height: 5rem;
+        width: 5.6rem;
+    }
+}
+
+@media (max-width: 330px) {
+    .container-xl .img {
+        margin-left: 3rem;
+        height: 4.7rem;
+        width: 8rem;
     }
 
     .header-buttons .burger-menu2 img {
@@ -3749,16 +3745,21 @@ button:focus {
         width: 1.8rem;
         object-fit: cover;
         border: 2px solid #ad1deb;
-        margin-left: 1.3rem;
+        /* margin-right: 1.3rem; */
     }
-}
 
-@media (min-width: 420px) {
-    .container-xl .img {
-        /*        margin-left: 6.4rem;*/
-        height: 5.2rem;
-        width: 8rem;
+    .header-buttons {
+        position: relative;
+        right: 1.5rem;
     }
+    .header-buttons .icon-button {
+        height: 1.8rem;
+        width: 1.8rem;
+    }
+
+    /*.header-buttons {
+        margin-right: 2rem;
+    }*/
 }
 
 .navbar {

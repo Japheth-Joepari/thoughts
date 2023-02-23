@@ -217,26 +217,13 @@
                                                     entire soul, like these sweet mornings</p>
                                                 <div class="post-bottom clearfix d-flex align-items-center">
 
-                                                    <div class="more-button float-end">
-                                                        <a href="{{ route('viewArticle', $post) }}"><span
-                                                                class="icon-options"></span></a>
+                                                    <div class="more-button float-start">
+
+                                                        <livewire:clap-button :post="$post" />
+
                                                     </div>
                                                 </div>
 
-                                                <div class="more-button float-start">
-
-                                                    <form action="{{ route('toggleClap', $post) }}" method="post"
-                                                        id="clap-form">
-                                                        @csrf
-                                                        <button type="submit" id="clap-button"
-                                                            style="border: transparent; background: transparent"><i
-                                                                class="fa-sharp fa-solid fa-hands-clapping btn btn-success text-white"
-                                                                id="clap-count">
-                                                                ({{ $post->claps->count() }})
-                                                            </i></button>
-                                                    </form>
-
-                                                </div>
                                             </div>
                                         </div>
                                     @endforeach

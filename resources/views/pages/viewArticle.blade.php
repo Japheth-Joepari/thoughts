@@ -132,7 +132,7 @@
                     <div class="post-header">
                         <h1 class="title mt-0 mb-3">{{ $post->name }}</h1>
                         <ul class="meta list-inline mb-0">
-                            <li class="list-inline-item"><a href="blog-single-alt.html#"><img
+                            <li class="list-inline-item"><a href="{{ route('author', $post->user) }}"><img
                                         src="{{ asset('images/' . $post->user->profile_photo) }}"
                                         class="author rounded-circle" alt="author"
                                         style="height: 5vh; width:5vh" />{{ $post->user->name }}</a>
@@ -173,16 +173,7 @@
                                     <div class="col-md-6 col-12">
                                         <!-- social icons -->
                                         <div class="social-icons list-unstyled list-inline mb-0 float-md-end">
-                                            <form action="{{ route('toggleClap', $post) }}" method="post"
-                                                id="clap-form">
-                                                @csrf
-                                                <button type="submit" id="clap-button"
-                                                    style="border: transparent; background: transparent"><i
-                                                        class="fa-sharp fa-solid fa-hands-clapping btn btn-success text-white"
-                                                        id="clap-count">
-                                                        ({{ $post->claps->count() }})
-                                                    </i></button>
-                                            </form>
+                                            <livewire:clap-button :post="$post" />
                                         </div>
                                     </div>
                                 </div>
@@ -362,7 +353,7 @@
                                         <div class="post post-list-sm circle">
                                             <div class="thumb circle">
                                                 <span class="number">{{ $post->views_count }}</span>
-                                                <a href="blog-single.html">
+                                                <a href="{{ route('viewArticle', $post) }}">
                                                     <div class="inner">
                                                         <img src="{{ asset('images/' . $post->image) }}" alt="post-title"
                                                             style="height: 6.7vh; width:7vh" />
@@ -371,7 +362,8 @@
                                             </div>
                                             <div class="details clearfix">
                                                 <h6 class="post-title my-0"><a
-                                                        href="blog-single.html">{{ $post->name }}</a></h6>
+                                                        href="{{ route('viewArticle', $post) }}">{{ $post->name }}</a>
+                                                </h6>
                                                 <ul class="meta list-inline mt-1 mb-0">
                                                     <li class="list-inline-item">{{ $post->created_at->diffForHumans() }}
                                                     </li>
@@ -395,7 +387,7 @@
                                     <ul class="list">
                                         @foreach ($categories as $category)
                                             <li><a
-                                                    href="index.html#">{{ $category->name }}</a><span>({{ $category->post_count }})</span>
+                                                    href="{{ route('categoryPost', $category) }}">{{ $category->name }}</a><span>({{ $category->post_count }})</span>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -432,7 +424,7 @@
                                 </div>
                                 <div class="widget-content">
                                     @foreach ($tags as $tag)
-                                        <a href="blog-single-alt.html#" class="tag">#{{ $tag->name }}</a>
+                                        <a href="{{ route('tagPost', $tag) }}" class="tag">#{{ $tag->name }}</a>
                                     @endforeach
                                 </div>
                             </div>
@@ -602,4 +594,8 @@
             <li class="list-inline-item"><a href="index.html#"><i class="fab fa-youtube"></i></a></li>
         </ul>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
 @endsection

@@ -224,15 +224,14 @@ class PageController extends Controller
 
     public function toggleClap(Post $post, Request $request) {
         $clap = auth()->user()->claps()->where('post_id', $post->id)->first();
+        if ($clap) {
+            $clap->delete();
+        } else {
+            auth()->user()->claps()->create([
+                'post_id' => $post->id,
+            ]);
+        }
 
-            if ($clap) {
-                $clap->delete();
-            } else {
-                auth()->user()->claps()->create([
-                    'post_id' => $post->id,
-                ]);
-            }
-
-        return back();
+    return back();
     }
 }

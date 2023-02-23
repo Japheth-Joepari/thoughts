@@ -23,12 +23,12 @@
 
 </head>
 
-<body class="" style="background: rgb(253, 253, 253)">
+<body class="" style="background: #fff">
     <div id="particles-js"> </div>
     {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script> --}}
     <script src="{{ asset('js/particles.js/particles.min.js') }}"></script>
     <div></div>
-    {{-- <script type="text/javascript">
+    <script type="text/javascript">
         particlesJS("particles-js", {
             particles: {
                 number: {
@@ -139,7 +139,7 @@
             },
             retina_detect: true
         });
-    </script> --}}
+    </script>
 
 
 

@@ -61,10 +61,17 @@
                         <!-- header buttons -->
                         <div class="header-buttons">
 
+
+
+                            <button class="search icon-button">
+                                <i class="icon-magnifier"></i>
+                            </button>
+                            <button class="burger-menu icon-button d-xl-none ">
+                                <span class="burger-icon "></span>
+                            </button>
                             @if (!Auth::user())
-                                <a class="btn btn-primary" href="{{ route('register') }}"
-                                    style="background: rgb(0, 0, 0); color:">Get
-                                    started</a>
+                                <a class="btn btn-primary p-2" href="{{ route('register') }}"
+                                    style="background: rgb(0, 0, 0); color:"><i class="fa-solid fa-right-to-bracket"></i> Get started</a>
                             @else
                                 @auth
                                     @if (Auth::user()->profile_photo != null)
@@ -82,14 +89,6 @@
                                     @endif
                                 @endauth
                             @endif
-
-
-                            <button class="search icon-button">
-                                <i class="icon-magnifier"></i>
-                            </button>
-                            <button class="burger-menu icon-button d-xl-none ">
-                                <span class="burger-icon "></span>
-                            </button>
 
                             <form id="myForm" action="{{ route('logout') }}" method="POST" style="display: none">
                                 @csrf
@@ -371,17 +370,7 @@
                                                 </div> --}}
 
                                                 <div class="post-bottom clearfix d-flex align-items-center">
-
-                                                    <form action="{{ route('toggleClap', $post) }}" method="post"
-                                                        id="clap-form">
-                                                        @csrf
-                                                        <button type="submit" id="clap-button"
-                                                            style="border: transparent; background: transparent"><i
-                                                                class="fa-sharp fa-solid fa-hands-clapping btn btn-success text-white"
-                                                                id="clap-count">
-                                                                ({{ $post->claps->count() }})
-                                                            </i></button>
-                                                    </form>
+                                                    <livewire:clap-button :post="$post" />
 
                                                 </div>
                                             </div>
@@ -642,7 +631,7 @@
                     <li><a href="{{ route('login') }}">Topics</a></li>
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                    <li><a href="{{ route('register') }}">Get Started </a></li>
+                    <li><a href="{{ route('register') }}"><i class="fa-duotone fa-right-to-bracket"></i> </a></li>
                 @else
                     <li><a href="#">My Account </a></li>
                     <li><a href="#">Publications</a></li>
@@ -703,7 +692,7 @@
                     <li><a href="{{ route('login') }}">Topics</a></li>
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                    <li><a href="{{ route('register') }}">Get Started </a></li>
+                    <li><a href="{{ route('register') }}"><i class="fa-duotone fa-right-to-bracket"></i> </a></li>
                 @else
                     <li><a href="#">My Account </a></li>
                     <li><a href="#">Publications</a></li>
