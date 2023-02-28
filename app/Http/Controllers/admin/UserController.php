@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
+use App\Http\Controllers\Controller;
+
 
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -19,7 +21,7 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        return view("users.index")->with('users', $users);
+        return view("admin.users.index")->with('users', $users);
     }
 
     /**
@@ -29,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('admin.users.create');
     }
 
     /**
@@ -90,7 +92,7 @@ class UserController extends Controller
 {
     // only authenticated users can edit their own profile
     if (Auth::id() == $user->id || Auth::id() == 1) {
-        return view('users.create')->with('user', $user);
+        return view('admin.users.create')->with('user', $user);
     }
 
     // no user is allowed to edit the super admin with id of 4
@@ -106,7 +108,7 @@ class UserController extends Controller
         return redirect()->back()->with('error', 'You are not authorized to edit this user.');
     }
 
-    return view('users.create')->with('user', $user);
+    return view('admin.users.create')->with('user', $user);
 }
 
 

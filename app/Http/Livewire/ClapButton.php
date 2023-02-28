@@ -29,10 +29,11 @@ public $cacheTimeout = 0;
 
     }
 
-    public function render()
-    {
-        return view('livewire.clap-button', [
-            'clapCount' => $this->post->claps->count(),
-        ]);
-    }
+   public function render()
+{
+    $post = Post::find($this->post->id);
+    $clapCount = $post->claps()->count();
+    return view('livewire.clap-button', compact('clapCount'));
+}
+
 }

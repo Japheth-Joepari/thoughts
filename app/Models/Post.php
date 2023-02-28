@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Clap;
 use App\Models\Tag;
+use App\Models\Comment;
+use App\Models\Reply;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
@@ -39,8 +41,16 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
     public function tags () {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function replies() {
+        return $this->hasMany(Reply::class);
     }
 
 }

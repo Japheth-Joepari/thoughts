@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+namespace App\Http\Controllers\admin;
+use App\Http\Controllers\Controller;
 use App\Models\Post;
 class TrashedPostController extends Controller
 {
@@ -13,7 +13,7 @@ class TrashedPostController extends Controller
     public function index()
     {
         $trashedPosts = Post::onlyTrashed()->get();
-        return view('trashed.index', compact('trashedPosts'));
+        return view('admin.trashed.index', compact('trashedPosts'));
     }
 
 

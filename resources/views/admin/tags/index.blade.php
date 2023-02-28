@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    @if (!$tags->isEmpty())
+    @if ($tags != '')
         <table class="table-auto w-full text-left bg-white shadow-md rounded mb-10">
             <thead class="bg-gray-50 text-white">
                 <tr class="h-16">
@@ -51,10 +51,10 @@
                         <td class="border px-4 py-2">
                             <a class="text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 px-3"
                                 href="{{ route('tags.edit', $tag) }}">Edit</a>
-                            
-                                <button type="submit" id="trash-post-{{ $tag->id }}"
-                                    class="trash-post text-xs leading-5 font-semibold rounded-full bg-red-100 text-green-800 px-3 ml-4">Delete</button>
-                           <div class="fixed bottom-0 inset-x-0 px-4 pb-4 inset-0 flex items-center justify-center hidden"
+
+                            <button type="submit" id="trash-post-{{ $tag->id }}"
+                                class="trash-post text-xs leading-5 font-semibold rounded-full bg-red-100 text-green-800 px-3 ml-4">Delete</button>
+                            <div class="fixed bottom-0 inset-x-0 px-4 pb-4 inset-0 flex items-center justify-center hidden"
                                 id="trash-modal-{{ $tag->id }}">
                                 <div class="fixed inset-0 transition-opacity">
                                     <div id="bd-cont" class="absolute inset-0 bg-gray-500 opacity-75">
@@ -63,12 +63,13 @@
                                 <div
                                     class="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
                                     <div>
-                                        <form action="{{ route('tags.destroy', $tag) }}"
-                                            method="post" id="delete-form-{{ $tag->id }}">
+                                        <form action="{{ route('tags.destroy', $tag) }}" method="post"
+                                            id="delete-form-{{ $tag->id }}">
                                             @csrf
                                             @method('delete')
                                             <div class="mb-4">
-                                                <p class="text-sm text-gray-600">Are you sure you want to move this tag to trash ?</p>
+                                                <p class="text-sm text-gray-600">Are you sure you want to move this tag to
+                                                    trash ?</p>
                                             </div>
                                         </form>
                                         <div class="flex justify-end">
@@ -83,7 +84,8 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="border px-4 py-2 text-sm leading-5 font-medium text-gray-900">{{ $tag->user->name }}</td>
+                        <td class="border px-4 py-2 text-sm leading-5 font-medium text-gray-900">{{ $tag->user->name }}
+                        </td>
                         <td class="border px-4 py-2 text-sm leading-5 font-medium text-gray-900">{{ $tag->posts_count }}
                             posts</td>
                     </tr>

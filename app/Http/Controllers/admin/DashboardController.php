@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\admin;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Post;
@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $postsCount = Post::count();
         $usersCount = User::count();
 
-        return view('dashboard.dashboard', [
+        return view('admin.dashboard.dashboard', [
             'tagsCount' => $tagsCount,
             'categoriesCount' => $categoriesCount,
             'postsCount' => $postsCount,

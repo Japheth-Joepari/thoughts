@@ -282,17 +282,22 @@ $(function () {
 
 var prevScrollpos = window.pageYOffset;
 
-window.onscroll = function() {
-  var currentScrollPos = window.pageYOffset;
+window.onscroll = function () {
+    var currentScrollPos = window.pageYOffset;
 
-  if (prevScrollpos > currentScrollPos) {
-    document.querySelector('.navbar').classList.remove('scrolled');
-    document.querySelector('.header-default').classList.remove('d-none');
-  } else {
-    document.querySelector('.navbar').classList.add('scrolled');
-    document.querySelector('.header-default').classList.add('d-none');
-  }
+    if (prevScrollpos > currentScrollPos) {
+        document.querySelector(".navbar").classList.remove("scrolled");
+        document.querySelector(".header-default").classList.remove("d-none");
+    } else {
+        document.querySelector(".navbar").classList.add("scrolled");
+        document.querySelector(".header-default").classList.add("d-none");
+    }
 
-  prevScrollpos = currentScrollPos;
-}
+    prevScrollpos = currentScrollPos;
+};
 
+document.getElementById("reply-button").addEventListener("click", function (e) {
+    e.preventDefault();
+    console.log("i was clicked");
+    document.getElementById("reply").classList.toggle("d-none");
+});

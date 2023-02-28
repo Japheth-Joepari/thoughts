@@ -51,6 +51,19 @@ img {
     height: auto;
 }
 
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Set the container height to the full viewport height */
+}
+
+.center img {
+    max-width: 100%;
+    /* Make sure the image doesn't exceed the container width */
+}
+
 .text-center {
     text-align: center;
 }
@@ -3621,14 +3634,10 @@ button:focus {
 
 /*# sourceMappingURL=style.css.map */
 
-
-
 /* Medium screens */
 
 /* Small screens */
 @media (max-width: 767px) {
- 
-
     .navbar {
         padding: 1rem;
     }
@@ -3639,7 +3648,6 @@ button:focus {
     } */
 
     .header-buttons a {
-        padding: 0.3rem;
         font-size: 12px;
         /* height: 1.6rem;
         width: 6.6rem; */
@@ -3647,8 +3655,6 @@ button:focus {
 }
 /* Extra large screens */
 @media (min-width: 1200px) {
-   
-
     .header-default {
         height: 6.2rem;
     }
@@ -3682,6 +3688,10 @@ button:focus {
     .container-xl .img {
         margin-left: 6.4rem;
         height: 3.2rem;
+    }
+
+    .header-right {
+        margin-left: 1.3rem;
     }
 }
 
@@ -3724,25 +3734,20 @@ button:focus {
     margin-left: 50px;
 }*/
 
-
-@media (min-width: 380px) {
-    .header-default .img {
-        /*        margin-left: 6.4rem;*/
-        height: 5rem;
-        width: 5.6rem;
-    }
+.img {
+    height: 9vh;
 }
 
 @media (max-width: 330px) {
     .container-xl .img {
-        margin-left: 3rem;
+        margin-left: 4rem;
         height: 4.7rem;
         width: 8rem;
     }
 
     .header-buttons .burger-menu2 img {
-        height: 1.8rem;
-        width: 1.8rem;
+        height: 2rem;
+        width: 2rem;
         object-fit: cover;
         border: 2px solid #ad1deb;
         /* margin-right: 1.3rem; */
@@ -3750,11 +3755,17 @@ button:focus {
 
     .header-buttons {
         position: relative;
-        right: 1.5rem;
+        right: 2rem;
     }
     .header-buttons .icon-button {
-        height: 1.8rem;
-        width: 1.8rem;
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .starts {
+        padding: 4px;
+        /* width: 5.2rem;
+        height: 1.9rem; */
     }
 
     /*.header-buttons {
@@ -3762,6 +3773,26 @@ button:focus {
     }*/
 }
 
+/* @media (max-width: 332px) {
+    .starts {
+        padding: 10px;
+    }
+} */
+
+@media (min-width: 411px) and (max-width: 427px) {
+    .container-xl .img {
+        margin-left: 5rem;
+        height: 4.7rem;
+        width: 8rem;
+    }
+    .starts {
+        padding: 10px;
+    }
+}
+
+.starts {
+    padding: 10px;
+}
 .navbar {
     transition: transform 0.3s ease-in-out;
 }
@@ -3778,3 +3809,15 @@ button:focus {
   opacity: 0;
   transform: translateY(-100%);
 }*/
+
+@media screen and (min-width: 992px) {
+    /* hide the element */
+    .burger-menu {
+        display: none;
+    }
+}
+
+.page-links {
+    height: 1rem;
+    width: 1rem;
+}

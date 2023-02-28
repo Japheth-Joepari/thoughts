@@ -1,133 +1,33 @@
 @extends('layouts.pageTemplate')
+@section('write-active', 'active')
 @section('content')
     <!-- site wrapper -->
     <div class="site-wrapper">
 
         <div class="main-overlay"></div>
+        <section class="single-cover2  data-bg-image" data-bg-image="{{ asset('images/write.jpg') }}">
 
-        <!-- header -->
-        <header class="header-default   ">
-            <nav class="navbar navbar-expand-lg">
-                <div class="container-xl nv">
-                    <!-- site logo -->
-                    <a class="navbar-brand " href="{{ route('home') }}"><img src="{{ asset('images/thotlogo.png') }}"
-                            alt="logo" class="img" /></a>
-
-                    <div class="collapse navbar-collapse">
-                        <!-- menus -->
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('explore') }}">Explore</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('topics') }}">Topics</a>
-                            </li>
-
-                            @if (Auth::user())
-                                <li class="nav-item dropdown active">
-                                    <a class="nav-link" href="{{ route('write') }}">Write</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('authors') }}">Authors</a>
-                                </li>
-                            @else
-                                <a class="nav-link" style="color:#ad1deb" href="{{ route('login') }}">SignIn</a>
-                                </li>
-                            @endif
-
-
-                        </ul>
-                    </div>
-
-                    <!-- header right section -->
-                    <div class="header-right">
-                        <!-- social icons -->
-                        <ul class="social-icons list-unstyled list-inline mb-0">
-                            <li class="list-inline-item"><a href="https://www.facebook.com/japhethjoepari/"><i
-                                        class="fab fa-facebook-f"></i></a>
-                            </li>
-                            <li class="list-inline-item"><a href="https://twitter.com/Joepari_Codes"><i
-                                        class="fab fa-twitter"></i></a></li>
-                            <li class="list-inline-item"><a href="https://www.instagram.com/japheth_joepari/"><i
-                                        class="fab fa-instagram"></i></a></li>
-                            <li class="list-inline-item"><a href="https://medium.com/@jeffevurulobi"><i
-                                        class="fab fa-medium"></i></a></li>
-                            {{-- <li class="list-inline-item"><a href="index.html#"><i class="fab fa-youtube"></i></a> --}}
-                            </li>
-                        </ul>
-                        <!-- header buttons -->
-                        <div class="header-buttons">
-
-                            @if (!Auth::user())
-                                <a class="btn btn-primary" href="{{ route('register') }}"
-                                    style="background: rgb(0, 0, 0); color:">Get
-                                    started</a>
-                            @else
-                                @auth
-                                    @if (Auth::user()->profile_photo != null)
-                                        <button class=" burger-menu2 b2" href="#"
-                                            style="background: transparent; border:none; width:3.4rem;">
-                                            <img class=" rounded-circle img-fluid "
-                                                src="{{ asset('/images/' . Auth::user()->profile_photo) }}" alt="Your avatar">
-                                        </button>
-                                    @else
-                                        <button class=" burger-menu2 b2" href="#"
-                                            style="background: transparent; border:none; width:3.4rem;">
-                                            <img class=" rounded-circle img-fluid " src="{{ asset('/images/avartar.png') }}"
-                                                alt="Your avatar">
-                                        </button>
-                                    @endif
-                                @endauth
-                            @endif
-
-
-                            <button class="search icon-button">
-                                <i class="icon-magnifier"></i>
-                            </button>
-                            <button class="burger-menu icon-button d-xl-none ">
-                                <span class="burger-icon "></span>
-                            </button>
-
-                            <form id="myForm" action="{{ route('logout') }}" method="POST" style="display: none">
-                                @csrf
-                                <!-- form fields go here -->
-                            </form>
-                            @auth
-
-                                <a class="icon-button b1" href="#" onclick="document.getElementById('myForm').submit();">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class=""
-                                        style="height: 1rem" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-log-out">
-                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                        <polyline points="16 17 21 12 16 7"></polyline>
-                                        <line x1="21" y1="12" x2="9" y2="12"></line>
-                                    </svg>
-                                </a>
-
-
-
-                            @endauth
-
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <section class="page-header">
             <div class="container-xl">
-                <div class="text-center">
-                    <h1 class="mt-0 mb-2">Article</h1>
+
+                <div class="cover-content post">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center mb-0">
-                            <li class="breadcrumb-item"><a href="contact.html#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Article</li>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">publish your article</a>
+                            </li>
+
                         </ol>
                     </nav>
+
+                    <!-- post header -->
+                    <div class="post-header">
+                        <h1 class="title mt-0 mb-3">{{ isset($post) ? 'Update Article' : 'New Article' }} </h1>
+                        <button id="scroll-button" class="btn btn-light mt-2 scroll-button">Scroll down</button>
+                    </div>
                 </div>
+
             </div>
+
         </section>
 
         <section class="main-content">
@@ -136,13 +36,13 @@
 
                 <!-- section header -->
                 <div class="section-header">
-                    <h3 class="section-title">Write Article</h3>
-                    <img src="images/wave.svg" class="wave" alt="wave" />
+                    <h3 class="section-title" id="sction">{{ isset($post) ? ' + Edit Article' : 'Write Article' }}</h3>
+                    <img src="{{ asset('images/wave.svg') }}" class="wave" alt="wave" />
                 </div>
 
                 <!-- Contact Form -->
-                <form id="contact-form" action="{{ route('storeArticle') }}" class="contact-form" method="post"
-                    enctype="multipart/form-data">
+                <form id="contact-form" action="{{ isset($post) ? route('updateArticle', $post) : route('storeArticle') }}"
+                    class="contact-form" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="messages"></div>
@@ -152,7 +52,8 @@
                             <!-- Title input -->
                             <div class="form-group">
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    id="name" name="name" placeholder="Title" value="{{ old('name') }}"
+                                    id="name" name="name" placeholder="Title"
+                                    value="{{ request()->routeIs('editArticle') ? old('name', $post->name) : old('name') }}"
                                     required>
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -164,7 +65,7 @@
                             <!-- Description textarea -->
                             <div class="form-group">
                                 <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
-                                    rows="9" placeholder="Description..." required>{{ old('description') }}</textarea>
+                                    rows="9" placeholder="Description..." required>{{ isset($post) ? old('description', $post->description) : old('name') }}</textarea>
                                 @error('description')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -179,7 +80,13 @@
                                 @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                <img id="imagePreview" src="" alt="Preview" class="d-none">
+                                <img id="imagePreview"
+                                    @if (isset($post)) src="{{ asset('/images/' . $post->image) }}"
+                                        class="d-block"
+                                        @else
+                                        src=""
+                                        class="d-none" @endif>
+
                             </div>
                         </div>
 
@@ -187,11 +94,13 @@
                             <!-- Category select -->
                             <div class="form-group">
                                 <select name="category_id" id="category_id"
-                                    class="form-control @error('category_id') is-invalid @enderror" required>
-                                    <option value="">Select Category</option>
+                                    class="form-control @error('category_id') is-invalid @enderror">
+                                    <option
+                                        value="{{ request()->routeIs('editArticle') ? old('category_id', $post->category_id) : old('category_id') }}">
+                                        Select Category</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}"
-                                            {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                            {{ old('category_id', isset($post) && $post->category_id == $category->id ? 'selected' : '') }}>
                                             {{ $category->name }}</option>
                                     @endforeach
                                 </select>
@@ -204,11 +113,14 @@
                         <div class="column col-md-12">
                             <!-- Tags select -->
                             <div class="form-group">
-                                <select name="tags[]" id="tags" data-role="tagsinput"
-                                    class="form-control chosen-select @error('tags') is-invalid @enderror" multiple>
+
+
+                                <select class="form-control chosen-select @error('tags') is-invalid @enderror" multiple
+                                    id="tags" name="tags[]" multiple>
+                                    {{-- Laravel Loop to display options --}}
                                     @foreach ($tags as $tag)
                                         <option value="{{ $tag->id }}"
-                                            {{ in_array($tag->id, old('tags', [])) ? 'selected' : '' }}>
+                                            {{ (is_array(old('tags')) && in_array($tag->id, old('tags'))) || (isset($post) && $post->tags->contains($tag->id)) ? 'selected' : '' }}>
                                             {{ $tag->name }}</option>
                                     @endforeach
                                 </select>
@@ -220,186 +132,15 @@
                     </div>
 
                     <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-default">
-                        + Create Article
+                        {{ isset($post) ? '+ Update Article' : 'Create Article' }}
                     </button>
 
                 </form>
-                <!-- Contact Form end -->
             </div>
 
         </section>
 
-        <!-- instagram feed -->
-
-
-        <!-- footer -->
-        <footer>
-            <div class="container-xl">
-                <div class="footer-inner">
-                    <div class="row d-flex align-items-center gy-4">
-                        <!-- copyright text -->
-                        <div class="col-md-4">
-                            <span class="copyright">© 2023 Thoughts. Made with &#x1F493; by Japheth Joepari.</span>
-                        </div>
-
-
-                        <!-- social icons -->
-                        <div class="col-md-4 text-center">
-                            <ul class="social-icons list-unstyled list-inline mb-0">
-                                <li class="list-inline-item"><a href="https://www.facebook.com/japhethjoepari/"><i
-                                            class="fab fa-facebook-f"></i></a>
-                                </li>
-                                <li class="list-inline-item"><a href="https://twitter.com/Joepari_Codes"><i
-                                            class="fab fa-twitter"></i></a></li>
-                                <li class="list-inline-item"><a href="https://www.instagram.com/japheth_joepari/"><i
-                                            class="fab fa-instagram"></i></a></li>
-                                <li class="list-inline-item"><a href="https://medium.com/@jeffevurulobi"><i
-                                            class="fab fa-medium"></i></a></li>
-                                {{-- <li class="list-inline-item"><a href="index.html#"><i class="fab fa-youtube"></i></a> --}}
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- go to top button -->
-                        <div class="col-md-4">
-                            <a href="index.html#" id="return-to-top" class="float-md-end"><i
-                                    class="icon-arrow-up"></i>Back to Top</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
     </div><!-- end site wrapper -->
-
-    <!-- search popup area -->
-    <div class="search-popup">
-        <!-- close button -->
-        <button type="button" class="btn-close" aria-label="Close"></button>
-        <!-- content -->
-        <div class="search-content">
-            <div class="text-center">
-                <h3 class="mb-4 mt-0">Press ESC to close</h3>
-            </div>
-            <!-- form -->
-            <form class="d-flex search-form">
-                <input class="form-control me-2" type="search" placeholder="Search and press enter ..."
-                    aria-label="Search">
-                <button class="btn btn-default btn-lg" type="submit"><i class="icon-magnifier"></i></button>
-            </form>
-        </div>
-    </div>
-
-    <!-- canvas menu -->
-    <div class="canvas-menu d-flex align-items-end flex-column">
-        <!-- close button -->
-        <button type="button" class="btn-close" aria-label="Close"></button>
-
-        <!-- logo -->
-        <div class="logo">
-            <img src="images/logo.svg" alt="Katen" />
-        </div>
-
-        <!-- menu -->
-        <nav>
-            <ul class="vertical-menu">
-                <li class="active">
-                    <a href="index.html">Home</a>
-                </li>
-
-                @if (!Auth::user())
-                    <li><a href="{{ route('login') }}">Explore</a></li>
-                    <li><a href="{{ route('login') }}">Topics</a></li>
-                    <li><a href="{{ route('login') }}">Login</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="{{ route('register') }}">Get Started </a></li>
-                @else
-                    <li><a href="#">My Account </a></li>
-                    <li><a href="#">Publications</a></li>
-                    <li><a href="#">New Article </a></li>
-                    <li><a href="#">Logout </a></li>
-                @endif
-            </ul>
-        </nav>
-
-        <!-- social icons -->
-        <ul class="social-icons list-unstyled list-inline mb-0 mt-auto w-100">
-            <li class="list-inline-item"><a href="https://www.facebook.com/japhethjoepari/"><i
-                        class="fab fa-facebook-f"></i></a>
-            </li>
-            <li class="list-inline-item"><a href="https://twitter.com/Joepari_Codes"><i class="fab fa-twitter"></i></a>
-            </li>
-            <li class="list-inline-item"><a href="https://www.instagram.com/japheth_joepari/"><i
-                        class="fab fa-instagram"></i></a></li>
-            <li class="list-inline-item"><a href="https://medium.com/@jeffevurulobi"><i class="fab fa-medium"></i></a>
-            </li>
-            {{-- <li class="list-inline-item"><a href="index.html#"><i class="fab fa-youtube"></i></a> --}}
-            </li>
-        </ul>
-    </div>
-
-
-    <!-- Image menu -->
-    <div class="canvas-menu2 d-flex align-items-end flex-column">
-        <!-- close button -->
-        <button type="button" class="btn-close" aria-label="Close"></button>
-
-        <!-- logo -->
-        <div class="logo">
-            @auth
-                @if (Auth::user()->profile_photo != null)
-                    <img class=" rounded-circle img-fluid " src="{{ asset('/images/' . Auth::user()->profile_photo) }}"
-                        alt="Your avatar" style="height:8rem; width:8rem; object-fit: cover; border:2px solid #ad1deb">
-                @else
-                    <img class=" rounded-circle img-fluid " src="{{ asset('/images/avartar.png') }}" alt="Your avatar"
-                        style="height:5rem; width:4.9rem; object-fit: cover; border:2px solid #ad1deb">
-                @endif
-            @endauth
-
-        </div>
-
-        <!-- menu -->
-        <nav>
-            <ul class="vertical-menu2">
-                <li class="active">
-                    @auth
-
-                        <p>Welcome {{ Auth::user()->name }} !</p>
-                    @endauth
-                </li>
-
-                @if (!Auth::user())
-                    <li><a href="{{ route('login') }}">Explore</a></li>
-                    <li><a href="{{ route('login') }}">Topics</a></li>
-                    <li><a href="{{ route('login') }}">Login</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="{{ route('register') }}">Get Started </a></li>
-                @else
-                    <li><a href="#">My Account </a></li>
-                    <li><a href="#">Publications</a></li>
-                    <li><a href="#">New Article </a></li>
-                    <li><a href="#">Logout </a></li>
-                @endif
-            </ul>
-        </nav>
-
-        <!-- social icons -->
-        <ul class="social-icons list-unstyled list-inline mb-0 mt-auto w-100">
-            <li class="list-inline-item"><a href="https://www.facebook.com/japhethjoepari/"><i
-                        class="fab fa-facebook-f"></i></a>
-            </li>
-            <li class="list-inline-item"><a href="https://twitter.com/Joepari_Codes"><i class="fab fa-twitter"></i></a>
-            </li>
-            <li class="list-inline-item"><a href="https://www.instagram.com/japheth_joepari/"><i
-                        class="fab fa-instagram"></i></a></li>
-            <li class="list-inline-item"><a href="https://medium.com/@jeffevurulobi"><i class="fab fa-medium"></i></a>
-            </li>
-            {{-- <li class="list-inline-item"><a href="index.html#"><i class="fab fa-youtube"></i></a> --}}
-            </li>
-        </ul>
-    </div>
-
-
 
     {{-- summernote Begins --}}
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

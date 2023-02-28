@@ -13,6 +13,8 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Clap;
+use App\Models\Comment;
+use App\Models\Reply;
 
 class User extends Authenticatable
 {
@@ -44,6 +46,10 @@ class User extends Authenticatable
         return $this->hasMany(Clap::class);
     }
 
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
     public function getRouteKeyName()
     {
         return 'uuid';
@@ -66,8 +72,9 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
-
-
+    public function replies() {
+        return $this->hasMany(Reply::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

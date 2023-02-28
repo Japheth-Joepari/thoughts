@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
+use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Category;
@@ -20,7 +21,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return view ('posts.index')->with('posts', $posts);
+        return view ('admin.posts.index')->with('posts', $posts);
     }
 
 
@@ -39,7 +40,7 @@ class PostController extends Controller
         }
 
         $tags = Tag::all();
-        return view("posts.create")->with(['categories' => $categories, 'tags' => $tags]);
+        return view("admin.posts.create")->with(['categories' => $categories, 'tags' => $tags]);
     }
 
     /**
@@ -104,7 +105,7 @@ class PostController extends Controller
        $categories = Category::all();
         $tags = Tag::all();
 
-        return view('posts.create', compact('post', 'categories', 'tags'));
+        return view('admin.posts.create', compact('post', 'categories', 'tags'));
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\admin;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
@@ -23,6 +23,6 @@ class SearchController extends Controller
     $tags = Tag::where('name', 'like', $query)->get();
     $users = User::where('name', 'like', $query)->get();
 
-    return view('search.index', compact('posts', 'categories', 'tags', 'users'));
+    return view('admin.search.index', compact('posts', 'categories', 'tags', 'users'));
 }
 }

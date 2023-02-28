@@ -78,6 +78,8 @@
 
             </tbody>
         </table>
+    @else
+        <h1 class="text-center mt-7 text-lg">Trash is Empty</h1>
     @endif
 
     <script>

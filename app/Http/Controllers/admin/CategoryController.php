@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\admin;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Tag;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use illuminate\Support\Str;
 
-
-class TagController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::all();
-        return view("tags.index")->with('tags', $tags);
+        $categories = Category::withCount('post')->get();
+        return view("admin.categories.index")->with('categories', $categories);
     }
 
     /**
@@ -28,7 +27,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('tags.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -43,12 +42,12 @@ class TagController extends Controller
             'name' => "required|max:230|min:3",
         ]);
 
-        Tag::create([
+        Category::create([
             'user_id' => Auth::id(),
-            'name' => $request->name,
             'uuid' => Str::uuid(),
+            'name' => $request->name,
         ]);
-        return to_route('tags.index')->with('success', 'Tag created successfully');;
+        return to_route('categories.index')->with('success', 'Category created successfully');;
     }
 
     /**
@@ -57,9 +56,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $tags)
+    public function show(Category $category)
     {
-         return to_route('tags.index');
+         return to_route('categories.index');
     }
 
     /**
@@ -68,9 +67,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tag $tag)
+    public function edit(Category $category)
     {
-        return view('tags.create')->with('tag', $tag);
+        return view('admin.categories.create')->with('category', $category);
     }
 
     /**
@@ -80,18 +79,18 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tag $tag)
+    public function update(Request $request, Category $category)
     {
         $request->validate([
             'name' => "required|max:230|min:3",
         ]);
 
-        $tag->update([
+        $category->update([
             "user_id" => Auth::id(),
             "uuid" => Str::uuid(),
             "name" => $request->name,
         ]);
-        return to_route("tags.index")->with('success', 'Tag updated successfully');;
+        return to_route("categories.index")->with('success', 'Category updated successfully');;
     }
 
     /**
@@ -100,9 +99,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy( Tag $tag )
+    public function destroy( Category $category )
     {
-        $tag->delete();
-        return to_route('tags.index')->with('error', 'Tag deleted successfully');;
+        $category->delete();
+        return to_route('categories.index')->with('error', 'Category deleted successfully');;
     }
 }
