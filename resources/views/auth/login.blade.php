@@ -14,30 +14,36 @@
                     style="background-image: url(' {{ asset('/images/graphics.jpg') }} ')"></div>
                 <!-- Col -->
                 <div class="w-full lg:w-1/2  p-5 rounded-lg lg:rounded-l-none">
-                    <h3 class="pt-4 text-2xl text-center">✅ Welcome Back!</h3>
+                    <h3 class=" text-2xl text-center">✅ Welcome Back!</h3>
                     <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" method="POST" action="{{ route('login') }}">
                         @csrf
+                        <div class=" text-center">
+                            @if (session('success'))
+                                <div class="mb-4 px-4 py-2 bg-green-100 border border-green-200 text-geen-700 rounded-md">
+                                    😩 {{ session('success') }} 🙏
+                                </div>
+                            @endif
+
+                            @if (session('error'))
+                                <div class="mt-1 px-4 py-2 bg-red-500 text-white rounded-md">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                        </div>
 
                         <div class=" flex-col">
                             <div class="rounded-t mb-0 ">
                                 <div class="btn-wrapper text-center">
-                                    <button
-                                        class=" bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                                        type="button">
+                                    <a class=" bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                                        href="{{ url('/auth/github') }}">
                                         <img alt="..." class="w-5 mr-1"
                                             src="https://demos.creative-tim.com/notus-js/assets/img/github.svg">Github
-                                    </button>
-                                    <button
-                                        class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                                        type="button">
+                                    </a>
+                                    <a class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                                        href="{{ url('/auth/google') }}">
                                         <img alt="..." class="w-5 mr-1"
-                                            src="https://demos.creative-tim.com/notus-js/assets/img/google.svg">Google</button>
+                                            src="https://demos.creative-tim.com/notus-js/assets/img/google.svg">Google</a>
 
-                                    <button
-                                        class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                                        type="button">
-                                        <img alt="..." class="w-5 mr-1"
-                                            src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg">Facebook</button>
 
                                 </div>
                             </div>

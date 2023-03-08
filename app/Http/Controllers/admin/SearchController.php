@@ -15,9 +15,7 @@ class SearchController extends Controller
     $query = '%' . $request->input('query') . '%';
 
 
-    $posts = Post::where('name', 'like', $query)
-                 ->orWhere('description', 'like', $query)
-                 ->get();
+    $posts = Post::where('name', 'like', $query)->get();
 
     $categories = Category::where('name', 'like', $query)->get();
     $tags = Tag::where('name', 'like', $query)->get();

@@ -54,7 +54,7 @@ class PostController extends Controller
     $validatedData = $request->validate([
         'name' => 'required',
         'description' => 'required',
-        'image' => 'required|image',
+        'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg,avif|max:2048',
         'category_id' => 'required|exists:categories,id',
         'tags' => 'required|array',
         'tags.*' => 'required|exists:tags,id',
@@ -120,7 +120,7 @@ class PostController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'image' => 'required|image',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg,avif|max:2048',
             'category_id' => 'required|exists:categories,id',
             'tags' => 'required|array',
             'tags.*' => 'required|exists:tags,id',

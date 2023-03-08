@@ -18,10 +18,12 @@ use App\Http\Controllers\pages\ExploreController;
 use App\Http\Controllers\pages\HomeController;
 use App\Http\Controllers\pages\ProfileController;
 use App\Http\Controllers\pages\TopicsController;
+use App\Http\Controllers\pages\SearchResultController;
+
 
 use App\Http\Controllers\pages\viewArticleController;
 use App\Http\Controllers\pages\ArticleController;
-use App\Http\Controllers\pages\CommentController;
+use App\Http\Controllers\SocialAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +53,9 @@ Route::middleware(['auth', 'role'])->group(function () {
 });
 
 
+Route::get('/back', function() {
+    return redirect()->intended();
+});
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/explore', [ExploreController::class, 'explore'])->name('explore');
 Route::get('/topics', [TopicsController::class, 'topics'])->name('topics');
@@ -70,6 +75,20 @@ Route::get('editprofile/{user}', [ProfileController::class, 'editProfile'])->nam
 Route::post('/update/{user}', [ProfileController::class, 'updateProfile'])->name('updateProfile')->middleware('auth');
 Route::post('toggleClap/{post}', [ClapsController::class, 'toggleClap'])->name('toggleClap')->middleware('auth');
 Route::get('contact', [ContactController::class, 'contact'])->name('contact');
+Route::get('search',[ SearchResultController::class, 'search'])->name('searchPost');
+
+// Socialite Routes GOOGLE
+Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback']);
+
+// Socialite Routes github
+Route::get('/auth/github', [SocialAuthController::class, 'redirectToGithub']);
+Route::get('/auth/github/callback', [SocialAuthController::class, 'handleGithubCallback']);
+
+// Socialite Routes facebook
+// Route::get('/auth/facebook', [SocialAuthController::class, 'redirectToFacebook']);
+// Route::get('/auth/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
+
 
 
 Route::middleware([

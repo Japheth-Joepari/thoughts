@@ -17,7 +17,7 @@ class AuthMiddleware
     public function handle(Request $request, Closure $next)
     {
         if ($request->user() == null) {
-            return redirect()->back();
+            return to_route('login')->with('success', 'pls login first');
         }
         return $next($request);
     }

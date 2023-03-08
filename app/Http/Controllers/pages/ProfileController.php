@@ -15,7 +15,15 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
         public function author(User $user) {
+            // foreach($user->following as $user) {
+            // dd($user->following);
 
+            // }
+
+            $followings = $user->following()->latest()->simplePaginate(3);
+            $followers = $user->followers()->latest()->simplePaginate(3);
+
+            // dd($following);
         // fetches the most popular 4 post by ascending order
         $mostPopularDesc = Post::orderBy('views_count', 'desc')->limit(4)->get();
 
@@ -26,7 +34,7 @@ class ProfileController extends Controller
         $user = User::findOrFail($userId );
 
         // Paginates the user
-        $usersPost = $user->post()->simplePaginate(5);
+        $usersPost = $user->post()->latest()->simplePaginate(5);
         // dd($usersPost);
 
 
@@ -40,7 +48,7 @@ class ProfileController extends Controller
         // fetches the number of post associated with a category
         $categories = Category::withCount('post')->get();
         // dd($user->name);
-        return view('pages.author', compact('user',  'mostPopularDesc',  'tags', 'usersPost'));
+        return view('pages.author', compact('followers', 'followings', 'user',  'mostPopularDesc',  'tags', 'usersPost'));
     }
 
     public function editProfile(User $user) {

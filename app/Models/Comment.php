@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Http\Livewire\Replies;
+use App\Models\Reply;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
@@ -19,5 +21,9 @@ class Comment extends Model
 
     public function post() {
         return $this->belongsTo(Post::class);
+    }
+
+    public function replies() {
+        return $this->hasMany(Reply::class);
     }
 }

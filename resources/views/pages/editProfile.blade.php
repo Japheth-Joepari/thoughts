@@ -253,7 +253,7 @@
                                 </div>
                             </div>
 
-                            <div class="column col-md-12">
+                            <div class="column col-md-12 p-1">
                                 <!-- File input -->
                                 <div class="form-group">
                                     <input type="file" class="form-control" id="profile_photo"
@@ -266,17 +266,25 @@
                             <button type="submit" name="submit" id="submit" value="Submit"
                                 class="btn btn-default">Update Profile</button><!-- Send Button -->
 
+                            <a href="{{ route('author', $user) }}" type="submit" name="submit" id="submit"
+                                value="Submit" class="btn btn-success"><i class="fa-solid fa-eye"></i> view
+                                Profile</a>
                         </form>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card shadow-lg">
-                                <div class="card-body">
-                                    <h5 class="d-flex align-items-center mb-3">Contributions</h5>
-                                    <p>({{ $user->post->count() }}) Posts</p>
+                                <div class="card-body" style="color: black">
+                                    <h5 class="d-flex align-items-center mb-3">Insights</h5>
+                                    <h6><i class="fa-solid fa-file-pen"></i> Articles: ({{ $user->post->count() }}) <i
+                                            class="fa-solid fa-users-viewfinder"></i>
+                                        Followers:({{ $user->followers->count() }})
+                                        <i class="fa-solid fa-user-secret"></i>
+                                        Following({{ $user->following->count() }})
+                                    </h6>
                                     <div class="progress mb-3" style="height: 5px">
                                         <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                            aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>

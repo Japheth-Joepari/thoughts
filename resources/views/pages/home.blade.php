@@ -39,7 +39,8 @@
                                 </div>
                                 <a href="{{ route('viewArticle', $post) }}">
                                     <div class="thumb rounded">
-                                        <div class="inner data-bg-image" data-bg-image="images/featured-lg.jpg">
+                                        <div class="inner data-bg-image"
+                                            data-bg-image="{{ asset('images/' . $post->image) }}">
                                         </div>
                                     </div>
                                 </a>
@@ -159,7 +160,7 @@
                             <img src="images/wave.svg" class="wave" alt="wave" />
                         </div>
 
-                        <div class="padding-20 rounded bordered">
+                        <div class="padding-30 rounded bordered">
                             <div class="row gy-5">
                                 <div class="col-sm-6">
                                     <!-- post -->
@@ -324,7 +325,7 @@
                             <!-- widget about -->
                             <div class="widget rounded">
                                 <div class="widget-about data-bg-image text-center" data-bg-image="images/map-bg.png">
-                                    <img src="images/thotlogo.png" alt="logo" class="" style="height: 6rem" />
+                                    <img src="images/thotlogo.png" alt="logo" class="" style="height: 9vh" />
                                     <p class="mb-4">Hello, We’re content writer who is fascinated by content fashion,
                                         celebrity and lifestyle. We helps clients bring the right content to the right
                                         people.</p>

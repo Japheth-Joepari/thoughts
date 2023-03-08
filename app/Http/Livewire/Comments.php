@@ -4,60 +4,96 @@ namespace App\Http\Livewire;
 
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Reply;
 use Illuminate\Support\Facades\Auth;
+
+// noofication
+use App\Events\CommentAdded;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\CommentNotification;
+
 use Livewire\Component;
 
 class Comments extends Component
 {
     public $post;
-    public $userId;
     public $body;
-    public $comments;
+    public $replyBody;
 
-    public function addComment()
+    protected $listeners = ['commentAdded' => '$refresh'];
+
+public function addComment()
+{
+    $this->validate([
+        'body' => 'required|string|min:5',
+    ]);
+
+    $comment = new Comment([
+        'body' => $this->body,
+        'user_id' => Auth::id(),
+    ]);
+    $this->post->comments()->save($comment);
+    $this->body = '';
+
+    // Create the notification instance
+    $notification = new CommentNotification($comment);
+    Notification::send($this->post->user, $notification);
+    Notification::send($this->post->user, new CommentNotification($comment)); // Add this line
+
+    $this->emit('commentAdded');
+    }
+
+
+    public function addReply(Comment $comment)
     {
-        Comment::create([
-            'body' => $this->body,
-            'user_id' => Auth::id(),
-            'post_id' => $this->post->id,
+        $this->validate([
+            'replyBody' => 'required|string|min:5',
         ]);
 
-        $this->body = ''; // Reset the comment body after submission
-        $this->comments = Comment::where('post_id', $this->post->id)->get();
+        $reply = new Reply([
+            'user_id' => Auth::id(),
+            'replyBody' => $this->replyBody,
+            'post_id' => $comment->post_id,
+
+        ]);
+
+        $comment->replies()->save($reply);
+        $this->replyBody = '';
+        $this->emit('commentAdded');
+
+        // Fire the CommentAdded event
+        // event(new CommentAdded($comment, $this->post));
+
     }
 
-    public $showReply = [];
-
-     public function showReplyInput($commentId)
+    public function deleteComment(Comment $comment)
     {
-        $this->showReply[$commentId] = true;
-    }
-
-    public function deleteComment($commentId)
-    {
-        $comment = Comment::find($commentId);
-        if ($comment && $comment->user_id === Auth::id()) {
+        if ($comment->user_id === Auth::id()) {
             $comment->delete();
-            $this->refreshComments();
+        }
+    }
+
+    public function deleteReply(Reply $reply)
+    {
+        if ($reply->user_id === Auth::id()) {
+            $reply->delete();
         }
     }
 
     public function mount(Post $post)
     {
         $this->post = $post;
-        $this->comments = $post->comments;
-        $this->refreshComments();
-    }
-
-     public function refreshComments()
-    {
-        $this->comments = Comment::where('post_id', $this->post->id)->get();
     }
 
     public function render()
     {
-        return view('livewire.comments', [
-            'comments' => $this->comments,
-        ]);
+        $comments = $this->post->comments()->with('replies')->latest()->simplePaginate(3);
+
+        return view('livewire.comments', compact('comments'));
+    }
+
+    public function notify($notification)
+    {
+        $this->user->notify($notification);
     }
 }

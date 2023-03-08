@@ -30,7 +30,7 @@
                                         class="author rounded-circle" alt="author"
                                         style="height: 5vh; width:5vh" />{{ $post->user->name }}</a>
                             </li>
-                            <li class="list-inline-item"><a href="blog-single-alt.html#">Trending</a></li>
+                            <li class="list-inline-item"><a href="#">Trending</a></li>
                             <li class="list-inline-item">{{ $post->created_at->diffForHumans() }}</li>
                         </ul>
                     </div>
@@ -86,42 +86,45 @@
                             </div>
                             <div class="details">
                                 <h4 class="name"><a href="blog-single-alt.html#">{{ $post->user->name }}</a></h4>
-                                <p>Hello, I’m a content writer who is fascinated by content fashion, celebrity and
-                                    lifestyle. She helps clients bring the right content to the right people.</p>
+                                @if ($post->user->about == '')
+                                    <p>Hello welcome to my page I'm a writer. Feel free to view, read and engage in my
+                                        content</p>
+                                @else
+                                    <p>{{ $post->user->about }}</p>
+                                @endif
                                 <!-- social icons -->
                                 <ul class="social-icons list-unstyled list-inline mb-0">
-                                    <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                class="fab fa-facebook-f"></i></a></li>
-                                    <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                class="fab fa-twitter"></i></a></li>
-                                    <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                class="fab fa-instagram"></i></a></li>
-                                    <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                class="fab fa-pinterest"></i></a></li>
-                                    <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                class="fab fa-medium"></i></a></li>
-                                    <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                class="fab fa-youtube"></i></a></li>
+                                    @if ($post->user->facebook != null)
+                                        <li class="list-inline-item"><a
+                                                href="https://www.facebook.com/{{ $post->user->facebook }}/"><i
+                                                    style="color: black" class="fab fa-facebook-f"></i></a>
+                                    @endif
+
+                                    @if ($post->user->twitter != null)
+                                        <li class="list-inline-item"><a
+                                                href="https://twitter.com/{{ $post->user->twitter }}"><i
+                                                    style="color: black" class="fab fa-twitter"></i></a></li>
+                                    @endif
+
+                                    @if ($post->user->instagram != null)
+                                        <li class="list-inline-item"><a
+                                                href="https://www.instagram.com/{{ $post->user->instagram }}/"><i
+                                                    style="color: black" class="fab fa-instagram"></i></a></li>
+                                    @endif
+
+                                    @if ($post->user->website != null)
+                                        <li class="list-inline-item"><a href="{{ $post->user->website }}"><i
+                                                    class="fa-solid fa-link" style="color: black"></i></a></li>
+                                    @endif
+                                    </li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="spacer" data-height="50"></div>
 
-                        <!-- section header -->
-                        <div class="section-header">
-                            <h3 class="section-title">Comments</h3>
-                            <img src="{{ asset('images/wave.svg') }}" class="wave" alt="wave" />
-                        </div>
-                        <!-- post comments -->
-                        <div class="comments bordered padding-30 rounded">
+                        <livewire:comments :post="$post" />
 
-
-
-                            <livewire:comments :post="$post" />
-                        </div>
-
-                        <div class="spacer" data-height="50"></div>
 
                         <!-- section header -->
 
@@ -133,35 +136,14 @@
 
                         <!-- sidebar -->
                         <div class="sidebar">
+                            <div class="spacer" data-height="20"></div>
                             <!-- widget about -->
-                            <div class="widget rounded">
-                                <div class="widget-about data-bg-image text-center" data-bg-image="images/map-bg.png">
-                                    <img src="{{ asset('images/thotlogo.png') }}" alt="logo" class="mb-2"
-                                        style="height: 17vh" />
-                                    <p class="mb-4">Hello, We’re content writer who is fascinated by content fashion,
-                                        celebrity and lifestyle. We helps clients bring the right content to the right
-                                        people.</p>
-                                    <ul class="social-icons list-unstyled list-inline mb-0">
-                                        <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                    class="fab fa-facebook-f"></i></a></li>
-                                        <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                    class="fab fa-twitter"></i></a></li>
-                                        <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                    class="fab fa-instagram"></i></a></li>
-                                        <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                    class="fab fa-pinterest"></i></a></li>
-                                        <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                    class="fab fa-medium"></i></a></li>
-                                        <li class="list-inline-item"><a href="blog-single-alt.html#"><i
-                                                    class="fab fa-youtube"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
+
 
                             <!-- widget popular posts -->
                             <div class="widget rounded">
 
-                                <div class="widget-header text-center">
+                                <div class="widget-header text-center ">
                                     <h3 class="widget-title">Popular Posts</h3>
                                     <img src="{{ asset('images/wave.svg') }}" class="wave" alt="wave" />
                                 </div>
@@ -195,7 +177,7 @@
                             </div>
 
                             <!-- widget categories -->
-                            <div class="widget rounded">
+                            {{-- <div class="widget rounded">
                                 <div class="widget-header text-center">
                                     <h3 class="widget-title">Explore Topics</h3>
                                     <img src="{{ asset('images/wave.svg') }}" class="wave" alt="wave" />
@@ -210,7 +192,7 @@
                                     </ul>
                                 </div>
 
-                            </div>
+                            </div> --}}
 
                             <!-- widget newsletter -->
                             <div class="widget rounded">
@@ -234,17 +216,7 @@
 
 
                             <!-- widget tags -->
-                            <div class="widget rounded">
-                                <div class="widget-header text-center">
-                                    <h3 class="widget-title">Tag Clouds</h3>
-                                    <img src="{{ asset('images/wave.svg') }}" class="wave" alt="wave" />
-                                </div>
-                                <div class="widget-content">
-                                    @foreach ($tags as $tag)
-                                        <a href="{{ route('tagPost', $tag) }}" class="tag">#{{ $tag->name }}</a>
-                                    @endforeach
-                                </div>
-                            </div>
+
 
                         </div>
 

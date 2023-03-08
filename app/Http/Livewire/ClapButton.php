@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 use App\Models\Post;
 use App\Models\Clap;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 use Livewire\Component;
@@ -15,9 +16,12 @@ class ClapButton extends Component
 public $cacheTimeout = 0;
 
 
-    public function toggleClap(Post $post, Request $request)
+    public function toggleClap()
     {
-               $clap = auth()->user()->claps()->where('post_id', $this->post->id)->first();
+            if(!Auth::user()) {
+                return to_route('login')->with('success', 'pls login first ');
+            } else {
+                $clap = auth()->user()->claps()->where('post_id', $this->post->id)->first();
 
             if ($clap) {
                 $clap->delete();
@@ -25,6 +29,7 @@ public $cacheTimeout = 0;
                 auth()->user()->claps()->create([
                     'post_id' => $this->post->id,
                 ]);
+            }
             }
 
     }

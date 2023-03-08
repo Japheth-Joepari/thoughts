@@ -15,7 +15,7 @@ use App\Models\Tag;
 use App\Models\Clap;
 use App\Models\Comment;
 use App\Models\Reply;
-
+use App\Models\Notification;
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -74,6 +74,21 @@ class User extends Authenticatable
 
     public function replies() {
         return $this->hasMany(Reply::class);
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'following_id');
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
     }
 
     /**

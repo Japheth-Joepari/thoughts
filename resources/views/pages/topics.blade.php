@@ -102,7 +102,9 @@
                                                     <ul class="meta list-inline mb-3">
                                                         <li class="list-inline-item"><a
                                                                 href="{{ route('author', $post->user) }}"><img
-                                                                    src="{{ 'images/' . $post->user->profile_photo }}"
+                                                                    @if ($post->user->profile_photo == '') src="{{ asset('images/avartar.png') }}"
+                                                                    @else
+                                                                    src="{{ asset('images/' . $post->user->profile_photo) }}" @endif
                                                                     class="author" alt="author"
                                                                     style="object-fit: cover; height:1.6rem; width:1.6rem; border-radius:50%;" />{{ $post->user->name }}</a>
                                                         </li>

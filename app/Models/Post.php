@@ -11,6 +11,8 @@ use App\Models\Tag;
 use App\Models\Comment;
 use App\Models\Reply;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Notifications\CommentNotification;
+
 
 class Post extends Model
 {
@@ -51,6 +53,15 @@ class Post extends Model
 
     public function replies() {
         return $this->hasMany(Reply::class);
+    }
+
+    public function notifyPostOwner(Comment $comment)
+    {
+        $postOwner = $this->user;
+
+        if ($postOwner) {
+            $postOwner->notify(new CommentNotification($comment));
+        }
     }
 
 }

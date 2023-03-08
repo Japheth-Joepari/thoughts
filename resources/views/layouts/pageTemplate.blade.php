@@ -39,7 +39,7 @@
 
         <div class="main-overlay"></div>
         <!-- header -->
-        <header class="header-default   ">
+        <header class="header-default   " id="topp">
             <nav class="navbar navbar-expand-lg">
                 <div class="container-xl nv">
                     <!-- site logo -->
@@ -56,16 +56,15 @@
                                 <a class="nav-link" href="{{ route('explore') }}">Explore</a>
                             </li>
                             <li class="nav-item @yield('topics-active')">
-                                <a class="nav-link" href="{{ route('topics') }}">Topics</a>
+                                <a class="nav-link" href="{{ route('topics') }}">Trending</a>
                             </li>
                             <li class="nav-item @yield('connect-active')">
                                 <a class="nav-link" href="{{ route('contact') }}">Connect</a>
                             </li>
-                            @if (Auth::user())
-                                <li class="nav-item dropdown @yield('write-active')">
-                                    <a class="nav-link" href="{{ route('write') }}">Publish</a>
-                                </li>
-                            @else
+                            <li class="nav-item dropdown @yield('write-active')">
+                                <a class="nav-link" href="{{ route('write') }}">Publish</a>
+                            </li>
+                            @if (!Auth::user())
                                 <li class="nav-item">
                                     <a class="nav-link" style="color:#ad1deb" href="{{ route('login') }}">SignIn</a>
                                 </li>
@@ -97,6 +96,25 @@
                             <button class="search icon-button">
                                 <i class="icon-magnifier"></i>
                             </button>
+
+                            @auth
+                                <div class="dropdown  icon-button2">
+                                    <button class="" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false"
+                                        style="border:transparent; background: transparent; color:#6e72fc;">
+                                        <i class="fas fa-bell"></i>
+                                        <span
+                                            class="badge rounded-pill badge-notification bg-danger position-absolute top-0 end-0">1</span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                        style="margin-top: 1rem; max-height: 200px; overflow-y: auto;">
+                                        <li><a class="dropdown-item" href="#">Notification 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Notification 2</a></li>
+                                        <li><a class="dropdown-item" href="#">Notification 3</a></li>
+                                    </ul>
+                                </div>
+                            @endauth
+
                             @if (!Auth::user())
                                 <button class="burger-menu icon-button d-xl-none ">
                                     <span class="burger-icon "></span>
@@ -109,16 +127,17 @@
                             @else
                                 @auth
                                     @if (Auth::user()->profile_photo != null)
-                                        <button class=" burger-menu2 b2" href="#"
+                                        <button class=" burger-menu2 " href="#"
                                             style="background: transparent; border:none;">
-                                            <img class=" rounded-circle img-fluid " style="height: 2rem; width:2rem"
+                                            <img class=" rounded-circle img-fluid icon-button2"
                                                 src="{{ asset('/images/' . Auth::user()->profile_photo) }}"
-                                                alt="Your avatar">
+                                                alt="Your avatar" style="border: 3px solid#ad1deb;">
                                         </button>
                                     @else
-                                        <button class=" burger-menu2 b2" href="#"
-                                            style="background: transparent; border:none; width:3.4rem;">
-                                            <img class=" rounded-circle img-fluid "
+                                        <button class=" burger-menu2 " href="#"
+                                            style="background-color: transparent; border: transparent">
+                                            <img class=" rounded-circle img-fluid icon-button2"
+                                                style="border: 3px solid#ad1deb;"
                                                 src="{{ asset('/images/avartar.png') }}" alt="Your avatar">
                                         </button>
                                     @endif
@@ -161,15 +180,10 @@
         <footer>
             <div class="container-xl ">
                 <div class="footer-inner" style="">
-                    <div class="row d-flex align-items-center gy-4">
-                        <!-- copyright text -->
-                        <div class="col-md-4">
-                            <span class="copyright">© 2023 Thoughts. Made with &#x1F493; by Japheth Joepari.</span>
-                        </div>
-
+                    <div class="row d-flex align-items-center  justify-content-between gy-4">
                         <!-- social icons -->
-                        <div class="col-md-4 text-center">
-                            <ul class="social-icons list-unstyled list-inline mb-0">
+                        <div class="col-md-4">
+                            <ul class="social-icons list-unstyled list-inline mb-0 ">
                                 <li class="list-inline-item"><a href="https://www.facebook.com/japhethjoepari/"><i
                                             class="fab fa-facebook-f"></i></a>
                                 </li>
@@ -184,10 +198,9 @@
                             </ul>
                         </div>
 
-                        <!-- go to top button -->
-                        <div class="col-md-4">
-                            <a href="index.html#" id="return-to-top" class="float-md-end"><i
-                                    class="icon-arrow-up"></i>Back to Top</a>
+                        <!-- copyright text -->
+                        <div class="col-md-4 float-md-start">
+                            <span class="copyright">© 2023 Thoughts. Made with &#x1F493; by Japheth Joepari.</span>
                         </div>
                     </div>
                 </div>
@@ -206,9 +219,12 @@
                 <h3 class="mb-4 mt-0">Press ESC to close</h3>
             </div>
             <!-- form -->
-            <form class="d-flex search-form">
+      
+
+            <form class="d-flex search-form" action="/search">
+                @csrf
                 <input class="form-control me-2" type="search" placeholder="Search and press enter ..."
-                    aria-label="Search">
+                    aria-label="Search" value="{{ request()->input('query')}}" name="query">
                 <button class="btn btn-default btn-lg" type="submit"><i class="icon-magnifier"></i></button>
             </form>
         </div>
@@ -231,11 +247,13 @@
                     <a href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="" @yield('explore-Active')><a href="{{ route('explore') }}">Explore</a></li>
-                <li class="" @yield('topics-active')><a href="{{ route('topics') }}">Topics</a></li>
+                <li class="" @yield('topics-active')><a href="{{ route('topics') }}">Trending</a></li>
                 <li><a href="{{ route('contact') }}" @yield('topics-active') class="">Connect</a></li>
+                <li><a href="{{ route('write') }}">Publish your article </a></li>
                 <li><a href="{{ route('register') }}">Get Started
                     </a></li>
-                <li><a href="{{ route('login') }}">Login</a></li>
+                <li><a href="{{ route('login') }}" class="btn btn-primary text-white"><i
+                            class="fa-solid fa-right-to-bracket"></i> Login</a></li>
                 {{-- <li><a href="{{ route('author'), Auth::user() }}">Publications</a></li> --}}
             </ul>
         </nav>
@@ -273,7 +291,7 @@
                     @else
                         <img class=" rounded-circle img-fluid " src="{{ asset('/images/avartar.png') }}"
                             alt="Your avatar"
-                            style="height:5rem; width:4.9rem; object-fit: cover; border:2px solid #ad1deb">
+                            style="height:8rem; width:8rem; object-fit: cover; border:2px solid #ad1deb">
                     @endif
                 @endauth
 
@@ -290,12 +308,15 @@
                     </li>
                     <li><a href="{{ route('home') }}">Home</a></li>
                     <li><a href="{{ route('explore') }}">Explore</a></li>
-                    <li><a href="{{ route('topics') }}">Topics</a></li>
+                    <li><a href="{{ route('topics') }}">Trending</a></li>
                     <li><a href="{{ route('editProfile', Auth::user()) }}">Account Settings </a></li>
-                    <li><a href="{{ route('author', Auth::user()) }}">Publications</a></li>
+                    <li><a href="{{ route('author', Auth::user()) }}">My Profile</a></li>
                     <li><a href="{{ route('write') }}">New Article </a></li>
                     <li><a href="{{ route('contact') }}">Connect</a></li>
-                    <li><a href="{{ route('logout') }}">Logout </a></li>
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <li><button type="submit" class="btn btn-primary">Logout </button></li>
+                    </form>
                 </ul>
             </nav>
 
@@ -363,6 +384,12 @@
             // Read the file as a data URL
             reader.readAsDataURL(file);
 
+        });
+
+        document.getElementById("back-to-top").addEventListener("click", function() {
+            console.log('clicked')
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
         });
     </script>
 

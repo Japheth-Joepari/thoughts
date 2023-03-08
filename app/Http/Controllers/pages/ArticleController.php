@@ -20,9 +20,9 @@ class ArticleController extends Controller
     }
 
     public function storeArticle(Request $request) {
-            $validatedData = $request->validate([
-        'name' => 'required',
-        'description' => 'required',
+        $validatedData = $request->validate([
+        'name' => 'required|min:5|max:100',
+        'description' => 'required|min:70',
         'image' => 'required|image',
         'category_id' => 'required|exists:categories,id',
         'tags' => 'required|array',
@@ -65,8 +65,8 @@ class ArticleController extends Controller
             return abort(403);
         }
         $request->validate([
-            'name' => 'required',
-            'description' => 'required',
+            'name' => 'required|min:5|max:100',
+            'description' => 'required|min:70',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required|exists:categories,id',
             'tags' => 'required|array',
@@ -101,7 +101,7 @@ class ArticleController extends Controller
         if($post->user_id != Auth::id()) {
             return abort(403);
         }
-        $post->forceDelete();
+        $post->delete();
         return redirect('topics')->with('error', 'post deleted successfully');
     }
 }
