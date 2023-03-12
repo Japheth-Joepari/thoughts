@@ -83,8 +83,8 @@
                                         class="fab fa-twitter"></i></a></li>
                             <li class="list-inline-item"><a href="https://www.instagram.com/japheth_joepari/"><i
                                         class="fab fa-instagram"></i></a></li>
-                            <li class="list-inline-item"><a href="https://medium.com/@jeffevurulobi"><i
-                                        class="fab fa-medium"></i></a></li>
+                            {{-- <li class="list-inline-item"><a href="https://medium.com/@jeffevurulobi"><i
+                                        class="fab fa-medium"></i></a></li> --}}
                             {{-- <li class="list-inline-item"><a href="index.html#"><i class="fab fa-youtube"></i></a> --}}
                             </li>
                         </ul>
@@ -98,21 +98,8 @@
                             </button>
 
                             @auth
-                                <div class="dropdown  icon-button2">
-                                    <button class="" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false"
-                                        style="border:transparent; background: transparent; color:#6e72fc;">
-                                        <i class="fas fa-bell"></i>
-                                        <span
-                                            class="badge rounded-pill badge-notification bg-danger position-absolute top-0 end-0">1</span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                        style="margin-top: 1rem; max-height: 200px; overflow-y: auto;">
-                                        <li><a class="dropdown-item" href="#">Notification 1</a></li>
-                                        <li><a class="dropdown-item" href="#">Notification 2</a></li>
-                                        <li><a class="dropdown-item" href="#">Notification 3</a></li>
-                                    </ul>
-                                </div>
+
+                                <livewire:unread-notifications />
                             @endauth
 
                             @if (!Auth::user())
@@ -137,8 +124,8 @@
                                         <button class=" burger-menu2 " href="#"
                                             style="background-color: transparent; border: transparent">
                                             <img class=" rounded-circle img-fluid icon-button2"
-                                                style="border: 3px solid#ad1deb;"
-                                                src="{{ asset('/images/avartar.png') }}" alt="Your avatar">
+                                                style="border: 3px solid#ad1deb;" src="{{ asset('/images/avartar.png') }}"
+                                                alt="Your avatar">
                                         </button>
                                     @endif
                                 @endauth
@@ -191,8 +178,8 @@
                                             class="fab fa-twitter"></i></a></li>
                                 <li class="list-inline-item"><a href="https://www.instagram.com/japheth_joepari/"><i
                                             class="fab fa-instagram"></i></a></li>
-                                <li class="list-inline-item"><a href="https://medium.com/@jeffevurulobi"><i
-                                            class="fab fa-medium"></i></a></li>
+                                {{-- <li class="list-inline-item"><a href="https://medium.com/@jeffevurulobi"><i
+                                            class="fab fa-medium"></i></a></li> --}}
                                 {{-- <li class="list-inline-item"><a href="index.html#"><i class="fab fa-youtube"></i></a> --}}
                                 </li>
                             </ul>
@@ -219,12 +206,12 @@
                 <h3 class="mb-4 mt-0">Press ESC to close</h3>
             </div>
             <!-- form -->
-      
+
 
             <form class="d-flex search-form" action="/search">
                 @csrf
                 <input class="form-control me-2" type="search" placeholder="Search and press enter ..."
-                    aria-label="Search" value="{{ request()->input('query')}}" name="query">
+                    aria-label="Search" value="{{ request()->input('query') }}" name="query">
                 <button class="btn btn-default btn-lg" type="submit"><i class="icon-magnifier"></i></button>
             </form>
         </div>
@@ -268,8 +255,8 @@
             </li>
             <li class="list-inline-item"><a href="https://www.instagram.com/japheth_joepari/"><i
                         class="fab fa-instagram"></i></a></li>
-            <li class="list-inline-item"><a href="https://medium.com/@jeffevurulobi"><i
-                        class="fab fa-medium"></i></a>
+            {{-- <li class="list-inline-item"><a href="https://medium.com/@jeffevurulobi"><i
+                        class="fab fa-medium"></i></a> --}}
             </li>
             {{-- <li class="list-inline-item"><a href="index.html#"><i class="fab fa-youtube"></i></a> --}}
             </li>
@@ -331,8 +318,8 @@
                 </li>
                 <li class="list-inline-item"><a href="https://www.instagram.com/japheth_joepari/"><i
                             class="fab fa-instagram"></i></a></li>
-                <li class="list-inline-item"><a href="https://medium.com/@jeffevurulobi"><i
-                            class="fab fa-medium"></i></a>
+                {{-- <li class="list-inline-item"><a href="https://medium.com/@jeffevurulobi"><i
+                            class="fab fa-medium"></i></a> --}}
                 </li>
                 {{-- <li class="list-inline-item"><a href="index.html#"><i class="fab fa-youtube"></i></a> --}}
                 </li>

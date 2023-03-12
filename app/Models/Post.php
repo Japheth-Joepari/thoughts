@@ -12,6 +12,7 @@ use App\Models\Comment;
 use App\Models\Reply;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Notifications\CommentNotification;
+use App\Notifications\NewPostNotification;
 
 
 class Post extends Model
@@ -61,6 +62,15 @@ class Post extends Model
 
         if ($postOwner) {
             $postOwner->notify(new CommentNotification($comment));
+        }
+    }
+
+    public function sendNewPostNotification()
+    {
+        $followers = $this->user->followers;
+
+        foreach ($followers as $follower) {
+            $follower->notify(new NewPostNotification($this));
         }
     }
 

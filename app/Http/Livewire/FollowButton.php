@@ -4,35 +4,42 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Notifications\FollowNotification;
 
 class FollowButton extends Component
-
 {
     public $user;
     public $isFollowing;
     public $buttonClass = 'btn btn-light mt-2'; // default button class
 
-    public function mount(User $user) {
+    public function mount(User $user)
+    {
         $this->user = $user;
-        if(auth()->user()) {
-
-        $this->isFollowing = auth()->user()->following->contains($user);
-        }
+        $this->isFollowing = auth()->user() ? auth()->user()->following->contains($user) : false;
     }
 
     public function toggle()
     {
-        if (auth()->user()) {
-            if ($this->isFollowing) {
+        if (!auth()->user()) {
+            return redirect()->route('login')->with('success', 'Please login to follow');
+        }
+
+        if ($this->isFollowing) {
             auth()->user()->following()->detach($this->user);
-            } else {
-                auth()->user()->following()->attach($this->user);
+        } else {
+            auth()->user()->following()->attach($this->user);
+
+            $followOwner = $this->user;
+            $user = auth()->user();
+
+            // dd('folowner: ', $followOwner->name, 'user', $user->name);
+            if ($user != $followOwner) {
+                $notification = new FollowNotification($followOwner, $user);
+                $followOwner->notify($notification);
             }
+        }
 
         $this->isFollowing = !$this->isFollowing;
-        }else {
-            return to_route('login')->with('success', 'pls login to follow');
-        }
     }
 
     public function render()
@@ -40,5 +47,3 @@ class FollowButton extends Component
         return view('livewire.follow-button');
     }
 }
-
-

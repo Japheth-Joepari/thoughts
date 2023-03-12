@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Events\CommentAdded;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\CommentNotification;
+use App\Notifications\ReplyNotification;
 
 use Livewire\Component;
 
@@ -28,43 +29,44 @@ public function addComment()
         'body' => 'required|string|min:5',
     ]);
 
-    $comment = new Comment([
+    $comment = $this->post->comments()->create([
         'body' => $this->body,
-        'user_id' => Auth::id(),
+        'user_id' => auth()->id(),
     ]);
-    $this->post->comments()->save($comment);
+
+        $postOwner = $this->post->user;
+        if(Auth::user() != $postOwner) {
+            $notification = new CommentNotification($comment, $postOwner);
+            Notification::send($postOwner, $notification);
+        }
+
     $this->body = '';
-
-    // Create the notification instance
-    $notification = new CommentNotification($comment);
-    Notification::send($this->post->user, $notification);
-    Notification::send($this->post->user, new CommentNotification($comment)); // Add this line
-
     $this->emit('commentAdded');
-    }
+}
 
 
-    public function addReply(Comment $comment)
-    {
-        $this->validate([
-            'replyBody' => 'required|string|min:5',
-        ]);
+public function addReply(Comment $comment)
+{
+    $this->validate([
+        'replyBody' => 'required|string|min:5',
+    ]);
 
-        $reply = new Reply([
-            'user_id' => Auth::id(),
-            'replyBody' => $this->replyBody,
-            'post_id' => $comment->post_id,
+    // dd($comment->user->name);
+    $reply = $comment->replies()->create([
+        'user_id' => auth()->id(),
+        'replyBody' => $this->replyBody,
+        'post_id' => $comment->post_id,
+    ]);
 
-        ]);
+      $commentOwner = $comment->user;
+        if(Auth::user() != $commentOwner) {
+            $notification = new ReplyNotification($reply, $commentOwner);
+            Notification::send($commentOwner, $notification);
+        }
 
-        $comment->replies()->save($reply);
-        $this->replyBody = '';
-        $this->emit('commentAdded');
-
-        // Fire the CommentAdded event
-        // event(new CommentAdded($comment, $this->post));
-
-    }
+    $this->replyBody = '';
+    $this->emit('commentAdded');
+}
 
     public function deleteComment(Comment $comment)
     {

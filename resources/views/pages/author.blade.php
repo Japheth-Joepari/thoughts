@@ -43,11 +43,8 @@
                 </li>
             </ul>
 
-            @if ($user->id == Auth::id())
                 <button id="scroll-button" class="btn btn-light mt-2 ">Scroll down</button>
-            @else
-                <livewire:follow-button :user="$user" />
-            @endif
+
         </div>
     </div>
     <!-- animated mouse wheel -->

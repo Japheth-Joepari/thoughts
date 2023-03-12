@@ -85,7 +85,8 @@
                                 <img src="{{ asset('images/' . $post->user->profile_photo) }}" alt="Katen Doe" />
                             </div>
                             <div class="details">
-                                <h4 class="name"><a href="blog-single-alt.html#">{{ $post->user->name }}</a></h4>
+                                <h4 class="name"><a
+                                        href="{{ route('author', $post->user) }}">{{ $post->user->name }}</a></h4>
                                 @if ($post->user->about == '')
                                     <p>Hello welcome to my page I'm a writer. Feel free to view, read and engage in my
                                         content</p>
@@ -201,16 +202,27 @@
                                     <img src="{{ asset('images/wave.svg') }}" class="wave" alt="wave" />
                                 </div>
                                 <div class="widget-content">
-                                    <span class="newsletter-headline text-center mb-3">Join 70,000 subscribers!</span>
-                                    <form>
-                                        <div class="mb-2">
-                                            <input class="form-control w-100 text-center" placeholder="Email address…"
-                                                type="email">
-                                        </div>
-                                        <button class="btn btn-default btn-full" type="submit">Sign Up</button>
-                                    </form>
-                                    <span class="newsletter-privacy text-center mt-3">By signing up, you agree to our <a
-                                            href="blog-single-alt.html#">Privacy Policy</a></span>
+                                    @if (Auth::user())
+                                        <h4 class="newsletter-headline text-center mb-3">Thanks for
+                                            subscribing</h4>
+                                        <small class="newsletter-headline text-success text-center mb-3">Over
+                                            300
+                                            subscribers</small>
+                                    @else
+                                        <span class="newsletter-headline text-center mb-3">Join 300
+                                            subscribers!</span>
+                                        <form action="{{ route('login') }}" method="get">
+                                            @csrf
+                                            <div class="mb-2">
+                                            </div>
+                                            <button class="btn btn-default btn-full" type="submit">Subscribe
+                                            </button>
+                                        </form>
+                                        <span class="newsletter-privacy text-center mt-3">By signing up, you
+                                            agree
+                                            find to our
+                                    @endif
+
                                 </div>
                             </div>
 

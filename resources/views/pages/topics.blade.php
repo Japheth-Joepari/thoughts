@@ -160,9 +160,9 @@
                                     data-bg-image="{{ asset('images/map-bg.png') }}">
                                     <img src="{{ asset('images/thotlogo.png') }}" alt="logo" class=""
                                         style="height: 6rem" />
-                                    <p class="mb-4">Hello, We’re content writer who is fascinated by content fashion,
-                                        celebrity and lifestyle. We helps clients bring the right content to the right
-                                        people.</p>
+                                    <p class="mb-4">Hey there, We are expert content writers, specializing in Tech and
+                                        other related content. Our goal is to help clients reach their target
+                                        audience with captivating content.</p>
                                     <ul class="social-icons list-unstyled list-inline mb-0">
                                         <li class="list-inline-item"><a href="https://www.facebook.com/japhethjoepari/"><i
                                                     class="fab fa-facebook-f"></i></a>
@@ -235,23 +235,30 @@
                                         <div class="widget rounded">
                                             <div class="widget-header text-center">
                                                 <h3 class="widget-title">Newsletter</h3>
-                                                <img src="{{ asset('images/wave.svg') }}" class="wave"
-                                                    alt="wave" />
+                                                <img src="images/wave.svg" class="wave" alt="wave" />
                                             </div>
                                             <div class="widget-content">
-                                                <span class="newsletter-headline text-center mb-3">Join 70,000
-                                                    subscribers!</span>
-                                                <form>
-                                                    <div class="mb-2">
-                                                        <input class="form-control w-100 text-center"
-                                                            placeholder="Email address…" type="email">
-                                                    </div>
-                                                    <button class="btn btn-default btn-full" type="submit">Sign
-                                                        Up</button>
-                                                </form>
-                                                <span class="newsletter-privacy text-center mt-3">By signing up, you agree
-                                                    find to our
-                                                    <a href="index.html#">Privacy Policy</a></span>
+                                                @if (Auth::user())
+                                                    <h4 class="newsletter-headline text-center mb-3">Thanks for
+                                                        subscribing</h4>
+                                                    <small class="newsletter-headline text-success text-center mb-3">Over
+                                                        300
+                                                        subscribers</small>
+                                                @else
+                                                    <span class="newsletter-headline text-center mb-3">Join 300
+                                                        subscribers!</span>
+                                                    <form action="{{ route('login') }}" method="get">
+                                                        @csrf
+                                                        <div class="mb-2">
+                                                        </div>
+                                                        <button class="btn btn-default btn-full" type="submit">Subscribe
+                                                        </button>
+                                                    </form>
+                                                    <span class="newsletter-privacy text-center mt-3">By signing up, you
+                                                        agree
+                                                        find to our
+                                                @endif
+
                                             </div>
                                         </div>
 
