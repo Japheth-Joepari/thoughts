@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('name')->unique();
-            $table->longText('description')->unique();
+            $table->string('description')->unique();
             $table->string('image')->nullable();
             $table->timestamps();
         });
