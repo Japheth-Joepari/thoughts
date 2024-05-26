@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (env(key: 'APP_ENV') !== 'local') {
+            URL::forceScheme(scheme: 'https');
+        }
     }
 
     /**
@@ -26,9 +29,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        if ($this->app->environment('production')) {
-            \URL::forceScheme('https');
-        }
+        // if ($this->app->environment('production')) {
+        //     \URL::forceScheme('https');
+        // }
         Paginator::useBootstrap();
     }
 }
