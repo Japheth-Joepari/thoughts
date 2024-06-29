@@ -43,7 +43,7 @@
                 </li>
             </ul>
 
-                <button id="scroll-button" class="btn btn-light mt-2 ">Scroll down</button>
+            <button id="scroll-button" class="btn btn-light mt-2 ">Scroll down</button>
 
         </div>
     </div>
@@ -60,16 +60,16 @@
 
         <div class="row gy-4">
 
-           
+
             <div class="col-lg-8">
 
                 <div class="row">
 
                     <div class="padding-30 rounded bordered">
-                         <div class="widget-header " id="sction">
-                <h3 class="widget-title">{{ $user->name }} Articles</h3>
-                <img src="{{ asset('images/wave.svg') }}" class="wave" alt="wave" />
-            </div>
+                        <div class="widget-header " id="sction">
+                            <h3 class="widget-title">{{ $user->name }} Articles</h3>
+                            <img src="{{ asset('images/wave.svg') }}" class="wave" alt="wave" />
+                        </div>
                         @if ($user->post->count() > 0)
                             <div class="col-md-12 col-sm-6">
                                 <!-- post -->
@@ -81,8 +81,7 @@
                                             </span>
                                             <a href="{{ route('viewArticle', $post) }}">
                                                 <div class="inner">
-                                                    <img src="{{ asset('images/' . $post->image) }}"
-                                                        alt="post-title" />
+                                                    <img src="{{ $post->image }}" alt="post-title" />
                                                 </div>
                                             </a>
                                         </div>
@@ -148,7 +147,7 @@
                         @endif
 
                         <!-- load more button -->
-                        <div class="text-center mb-3" >
+                        <div class="text-center mb-3">
                             {{ $usersPost->links() }}
                         </div>
 
@@ -299,7 +298,7 @@
                                     @else
                                         <p class="text-center">(0) active followers</p>
                                     @endif
-                                    @if($followers->hasPages() && $followers->hasMorePages())
+                                    @if ($followers->hasPages() && $followers->hasMorePages())
                                         <div style="">
                                             {{ $followers->links() }}
                                         </div>
@@ -341,7 +340,7 @@
                                     @else
                                         <p class="text-center">(0) active following..</p>
                                     @endif
-                                    @if($followings->hasPages() && $followings->hasMorePages())
+                                    @if ($followings->hasPages() && $followings->hasMorePages())
                                         <div style="margin-bottom: 6rem;">
                                             {{ $followings->links() }}
                                         </div>

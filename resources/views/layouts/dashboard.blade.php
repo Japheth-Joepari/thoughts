@@ -18,7 +18,9 @@
         rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="{{ mix('js/app.js') }}" defer></script>
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 
 
@@ -176,7 +178,7 @@
                                     alt="" srcset="" style="object-fit: cover">
                             @else
                                 <img class="h-full w-full object-cover "
-                                    src="{{ asset('/images/' . Auth::user()->profile_photo) }}" alt="Your avatar">
+                                    src="{{ asset(Auth::user()->profile_photo) }}" alt="Your avatar">
                             @endif
                         </button>
 

@@ -79,8 +79,8 @@
                                                     </span>
                                                     <a href="{{ route('viewArticle', $post) }}">
                                                         <div class="inner">
-                                                            <img src="{{ asset('images/' . $post->image) }}"
-                                                                alt="post-title" />
+                                                            <img src="{{ $post->image }}" alt="post-title"
+                                                                loading="lazy" />
                                                         </div>
                                                     </a>
                                                 </div>

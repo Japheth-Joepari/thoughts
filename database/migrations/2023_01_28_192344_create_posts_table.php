@@ -19,8 +19,9 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('name')->unique();
-            $table->string('description')->unique();
+            $table->text('description')->unique();
             $table->string('image')->nullable();
+            $table->string('image_public_id')->nullable();
             $table->timestamps();
         });
     }

@@ -46,8 +46,7 @@
                         <article class="overflow-hidden rounded-lg  shadow-lg">
 
                             <a href="{{ route('viewArticle', $post) }}">
-                                <img alt="Placeholder" class="block h-auto w-full object-cover"
-                                    src="{{ asset('images/' . $post->image) }}">
+                                <img alt="Placeholder" class="block h-auto w-full object-cover" src="{{ $post->image }}">
                             </a>
 
                             <header class="flex-col items-center justify-between leading-tight p-2 md:p-4">
@@ -69,7 +68,7 @@
                                 <a href="{{ route('author', $post->user) }}"
                                     class="flex items-center no-underline hover:underline text-black" href="#">
                                     <img alt="Placeholder" class="block rounded-full h-4 w-4 object-cover"
-                                        src="{{ asset('images/' . $post->user->profile_photo) }}">
+                                        src="{{ $post->user->profile_photo }}">
                                     <div>
 
                                         <p class="ml-2 text-sm">

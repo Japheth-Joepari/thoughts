@@ -117,15 +117,16 @@
                                         <button class=" burger-menu2 " href="#"
                                             style="background: transparent; border:none;">
                                             <img class=" rounded-circle img-fluid icon-button2"
-                                                src="{{ asset('/images/' . Auth::user()->profile_photo) }}"
-                                                alt="Your avatar" style="border: 3px solid#ad1deb;">
+                                                src="{{ Auth::user()->profile_photo }}" alt="Your avatar"
+                                                style="border: 3px solid#ad1deb;" loading="lazy">
                                         </button>
                                     @else
                                         <button class=" burger-menu2 " href="#"
                                             style="background-color: transparent; border: transparent">
                                             <img class=" rounded-circle img-fluid icon-button2"
-                                                style="border: 3px solid#ad1deb;" src="{{ asset('/images/avartar.png') }}"
-                                                alt="Your avatar">
+                                                style="border: 3px solid#ad1deb;"
+                                                src="{{ asset('/images/avartar.png') }}" alt="Your avatar"
+                                                loading="lazy">
                                         </button>
                                     @endif
                                 @endauth
@@ -272,13 +273,13 @@
             <div class="logo">
                 @auth
                     @if (Auth::user()->profile_photo != null)
-                        <img class=" rounded-circle img-fluid "
-                            src="{{ asset('/images/' . Auth::user()->profile_photo) }}" alt="Your avatar"
-                            style="height:8rem; width:8rem; object-fit: cover; border:2px solid #ad1deb">
+                        <img class=" rounded-circle img-fluid " src="{{ Auth::user()->profile_photo }}"
+                            alt="Your avatar" style="height:8rem; width:8rem; object-fit: cover; border:2px solid #ad1deb"
+                            loading="lazy">
                     @else
                         <img class=" rounded-circle img-fluid " src="{{ asset('/images/avartar.png') }}"
-                            alt="Your avatar"
-                            style="height:8rem; width:8rem; object-fit: cover; border:2px solid #ad1deb">
+                            alt="Your avatar" style="height:8rem; width:8rem; object-fit: cover; border:2px solid #ad1deb"
+                            loading="lazy">
                     @endif
                 @endauth
 

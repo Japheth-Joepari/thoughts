@@ -29,28 +29,39 @@ class SocialAuthController extends Controller
      */
 public function handleGoogleCallback(Request $request)
 {
-    $user = Socialite::driver('google')->user();
+    try {
+        // For debugging purposes, use stateless mode to bypass state verification
+        // Note: Remove stateless() in production to enable state verification
+        $user = Socialite::driver('google')->user();
 
-    $existingUser = User::where('email', $user->email)->first();
+        $existingUser = User::where('email', $user->email)->first();
 
-    if ($existingUser) {
-        // User already exists, so log them in
-        auth()->login($existingUser);
-    } else {
-        // User doesn't exist, so create a new user and log them in
-        $newUser = User::create([
-            'name' => $user->name,
-            'email' => $user->email,
-            'password' => bcrypt(Str::random(16)),
-            'uuid' => Str::uuid(),
-        ]);
+        if ($existingUser) {
+            // User already exists, so log them in
+            auth()->login($existingUser);
+        } else {
+            // User doesn't exist, so create a new user and log them in
+            $newUser = User::create([
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => bcrypt(Str::random(16)),
+                'uuid' => Str::uuid(),
+            ]);
 
-        auth()->login($newUser);
+            auth()->login($newUser);
+        }
+
+        // Redirect the user to the home page
+        return redirect()->route('home');
+    } catch (\Exception $e) {
+        // Log the error for debugging
+        \Log::error($e);
+
+        // Redirect to the login page with an error message
+        return redirect('/login')->with('error', $e);
     }
-
-    // Redirect the user to the home page
-    return redirect()->route('home');
 }
+
 
  public function redirectToGitHub()
     {
@@ -64,30 +75,42 @@ public function handleGoogleCallback(Request $request)
      *
      * @return \Illuminate\Http\Response
      */
-public function handleGithubCallback()
+
+public function handleGitHubCallback()
 {
-    $user = Socialite::driver('github')->user();
+    try {
+        // For debugging purposes, use stateless mode to bypass state verification
+        // Note: Remove stateless() in production to enable state verification
+        $user = Socialite::driver('github')->user();
 
-    $existingUser = User::where('email', $user->email)->first();
+        $existingUser = User::where('email', $user->email)->first();
 
-    if ($existingUser) {
-        // User already exists, so log them in
-        auth()->login($existingUser);
-    } else {
-        // User doesn't exist, so create a new user and log them in
-        $newUser = User::create([
-            'name' => $user->name,
-            'email' => $user->email,
-            'password' => bcrypt(Str::random(16)),
-            'uuid' => Str::uuid(),
-        ]);
+        if ($existingUser) {
+            // User already exists, so log them in
+            auth()->login($existingUser);
+        } else {
+            // User doesn't exist, so create a new user and log them in
+            $newUser = User::create([
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => bcrypt(Str::random(16)),
+                'uuid' => Str::uuid(),
+            ]);
 
-        auth()->login($newUser);
+            auth()->login($newUser);
+        }
+
+        // Redirect the user to the home page
+        return redirect()->route('home');
+    } catch (\Exception $e) {
+        // Log the error for debugging
+        \Log::error($e);
+
+        // Redirect to the login page with an error message
+        return redirect('/login')->with('error', 'Unable to login using GitHub. Please try again.');
     }
-
-    // Redirect the user to the home page
-    return redirect()->route('home');
 }
+
 
 // public function redirectToFacebook()
 //     {

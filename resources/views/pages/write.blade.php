@@ -81,11 +81,12 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                                 <img id="imagePreview"
-                                    @if (isset($post)) src="{{ asset('/images/' . $post->image) }}"
+                                    @if (isset($post)) src="{{ $post->image }}"
                                         class="d-block"
                                         @else
                                         src=""
-                                        class="d-none" @endif>
+                                        class="d-none" @endif
+                                    loading="lazy">
 
                             </div>
                         </div>

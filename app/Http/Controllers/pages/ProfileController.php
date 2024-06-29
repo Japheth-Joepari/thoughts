@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\pages;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
-Use App\Models\User;
+use App\Models\User;
 use App\Models\Tag;
 use App\Models\Category;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use File;
 
 
@@ -14,16 +16,17 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-        public function author(User $user) {
-            // foreach($user->following as $user) {
-            // dd($user->following);
+    public function author(User $user)
+    {
+        // foreach($user->following as $user) {
+        // dd($user->following);
 
-            // }
+        // }
 
-            $followings = $user->following()->latest()->simplePaginate(3);
-            $followers = $user->followers()->latest()->simplePaginate(3);
+        $followings = $user->following()->latest()->simplePaginate(3);
+        $followers = $user->followers()->latest()->simplePaginate(3);
 
-            // dd($following);
+        // dd($following);
         // fetches the most popular 4 post by ascending order
         $mostPopularDesc = Post::orderBy('views_count', 'desc')->limit(4)->get();
 
@@ -31,7 +34,7 @@ class ProfileController extends Controller
         $userId = $user->id;
 
         // Finds the user
-        $user = User::findOrFail($userId );
+        $user = User::findOrFail($userId);
 
         // Paginates the user
         $usersPost = $user->post()->latest()->simplePaginate(5);
@@ -51,16 +54,18 @@ class ProfileController extends Controller
         return view('pages.author', compact('followers', 'followings', 'user',  'mostPopularDesc',  'tags', 'usersPost'));
     }
 
-    public function editProfile(User $user) {
-        if($user->id != Auth::id()) {
-                return abort(403);
+    public function editProfile(User $user)
+    {
+        if ($user->id != Auth::id()) {
+            return abort(403);
         }
         return view('pages.editProfile', compact('user'));
     }
 
-    public function updateProfile(User $user, Request $request) {
-        if($user->id != Auth::id()) {
-                return abort(403);
+    public function updateProfile(User $user, Request $request)
+    {
+        if ($user->id != Auth::id()) {
+            return abort(403);
         }
         // Get the input values from the request
         $input = $request->only(['name', 'about', 'email', 'facebook', 'instagram', 'twitter', 'website']);
@@ -84,19 +89,16 @@ class ProfileController extends Controller
             }
         }
 
-        // Update the profile photo if it exists
+
         if ($request->hasFile('profile_photo')) {
-                $old_photo = public_path('images/' . $user->profile_photo);
-                if (File::exists($old_photo)) {
-                    File::delete($old_photo);
-                }
-                $image = $request->file('profile_photo');
-                $new_name = rand() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('images'), $new_name);
-                $user->profile_photo = $new_name;
-            } else {
-                $user->profile_photo = $user->profile_photo;
+            if ($user->image_public_id) {
+                Cloudinary::destroy($user->image_public_id);
             }
+
+            $uploadedFileUrl = $request->file('profile_photo')->storeOnCloudinary('thoughts/profile');
+            $user->profile_photo = $uploadedFileUrl->getSecurePath();
+            $user->image_public_id = $uploadedFileUrl->getPublicId();
+        }
 
         // Save the changes to the user object
         $user->save();

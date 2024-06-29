@@ -12,7 +12,7 @@
                         <img class="w-24 h-24 rounded-full" src="{{ asset('/images/avartar.png') }}" alt=""
                             srcset="" style="object-fit: cover">
                     @else
-                        <img class="w-24 h-24 rounded-full" src=" {{ asset('/images/' . Auth::user()->profile_photo) }} ">
+                        <img class="w-24 h-24 rounded-full" src=" {{ asset(Auth::user()->profile_photo) }} ">
                     @endif
                     <div class="ml-6">
                         <div class="text-2xl font-normal flex items-center">

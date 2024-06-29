@@ -22,7 +22,7 @@ class CreateNewUser implements CreatesNewUsers
      *
      * @param  array<string, string>  $input
      */
-     public function create(array $input): User
+    public function create(array $input): User
     {
         // Validate input ...
 
@@ -33,15 +33,21 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
 
-        // Send notification to user with id=4
-        $adminUser = User::find(1);
-        if ($adminUser) {
-            $adminUser->notify(new NewUserNotification($user));
+        if ($user->id == 1) {
+            $user->is_admin = 1;
+            $user->role = 'admin';
+            $user->save();
         }
+
+        // Send notification to user with id=4
+        // $adminUser = User::find(1);
+        // if ($adminUser) {
+        //     $adminUser->notify(new NewUserNotification($user));
+        // }
 
 
         // Send welcome email to user
-        $user->notify(new WelcomeEmailNotification($user));
+        // $user->notify(new WelcomeEmailNotification($user));
         return $user;
     }
 }

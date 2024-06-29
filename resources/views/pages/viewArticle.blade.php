@@ -6,7 +6,7 @@
         <div class="main-overlay"></div>
 
         <!-- cover header -->
-        <section class="single-cover data-bg-image" data-bg-image="{{ asset('images/' . $post->image) }}">
+        <section class="single-cover data-bg-image" data-bg-image="{{ $post->image }}">
 
             <div class="container-xl">
 
@@ -155,7 +155,7 @@
                                                 <span class="number">{{ $post->views_count }}</span>
                                                 <a href="{{ route('viewArticle', $post) }}">
                                                     <div class="inner">
-                                                        <img src="{{ asset('images/' . $post->image) }}" alt="post-title"
+                                                        <img src="{{ $post->image }}" alt="post-title"
                                                             style="height: 6.7vh; width:7vh" />
                                                     </div>
                                                 </a>
