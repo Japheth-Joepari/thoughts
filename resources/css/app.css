@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* :root {
+    color-scheme: only light;
+} */
+
+.logobotton {
+    display: none;
+}
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* .cntn {
+    margin: 0;
+    top: 20%;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    transform: translateX(-50%);
+    border-radius: 9px;
+    border-top: 10px solid #3858f6;
+    background-color: transparent;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+}
+
+.cntn img {
+    text-align: center;
+    height: 5.9rem;
+    top: -24%;
+    background: white;
+    left: 48%;
+    transform: translateX(-50%);
+    position: absolute;
+}
+
+.cntn input {
+    outline: white;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom-color: #d7dae4;
+}
+
+.cntn button {
+    background-color: #3858f6;
+}
+
+.cntn h3 {
+    color: #888a90;
+    background-color: white;
+}
+
+@media screen and (max-width: 500px) {
+    .cntn {
+        top: 12%;
+    }
+} */
+.ctt1 {
+    position: absolute;
+}
+
+.ctt2 {
+    position: absolute;
+}
+
+/* small screen sizes */
+@media screen and (max-width: 500px) {
+    .ctt2 {
+        top: 6%;
+        /* left: 5%; */
+    }
+
+    .ctt1 {
+        top: 6%;
+        /* right: 1%; */
+    }
+
+    .logo2 img {
+        /* display: none; */
+        height: 4rem;
+        text-align: center;
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+
+    .logo img {
+        /* display: none; */
+        height: 4rem;
+        text-align: center;
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+
+    .logobotton {
+        display: contents;
+    }
+    /* .logobotton img {
+        height: 5rem;
+    } */
+
+    .logom img {
+        text-align: center;
+        height: 4.4rem;
+        /*width: 20rem;
+    */
+        /* top: -2%; */
+        /*background: white;
+    */
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+}
+
+/* For medium screens (501px - 768px): */
+
+@media screen and (min-width: 501px) and (max-width: 768px) {
+    .ctt2 {
+        top: 18%;
+        left: 5%;
+    }
+
+    .ctt1 {
+        top: 23%;
+        right: 1%;
+    }
+
+    .logo img {
+        text-align: center;
+        height: 7rem;
+        /*width: 20rem;
+    */
+        top: -12%;
+        /*background: white;
+    */
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+
+    .logo2 img {
+        text-align: center;
+        height: 7rem;
+        /*width: 20rem;
+    */
+        top: -9%;
+        /*background: white;
+    */
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+}
+
+/* For large screens (769px - 1024px): */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .ctt1 {
+        top: 15%;
+    }
+
+    .ctt2 {
+        top: 22%;
+        left: 1rem;
+    }
+
+    .logo img {
+        text-align: center;
+        height: 7rem;
+        /*width: 20rem;
+    */
+        top: -12%;
+        /*background: white;
+    */
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+
+    .logo2 img {
+        text-align: center;
+        height: 7rem;
+        /*width: 20rem;
+    */
+        top: -9%;
+        /*background: white;
+    */
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+}
+
+/* Extra large screen sizes */
+@media screen and (min-width: 1024px) {
+    .logo2 img {
+        text-align: center;
+        height: 9rem;
+        /* width: 20rem; */
+        top: -14%;
+        /* background: white; */
+        left: 48%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+    .ctt1 {
+        top: 15%;
+    }
+
+    .ctt2 {
+        top: 19%;
+    }
+
+    .logo img {
+        text-align: center;
+        height: 9rem;
+        /*width: 20rem;
+    */
+        top: -17%;
+        /*background: white;
+    */
+        left: 48%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+}
+
+.logom img {
+    text-align: center;
+    height: 7rem;
+    /*width: 20rem;
+    */
+    top: -4%;
+    /*background: white;
+    */
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+}
+
+.ct3 {
+    position: absolute;
+    top: 10%;
+}
